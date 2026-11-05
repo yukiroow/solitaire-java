@@ -1,6 +1,6 @@
 package com.svi;
 
-import com.svi.util.InputUtil;
+import com.svi.utils.InputUtil;
 
 import java.util.Scanner;
 

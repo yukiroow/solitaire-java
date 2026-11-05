@@ -1,4 +1,4 @@
-package com.svi.util;
+package com.svi.utils;
 
 import java.util.Scanner;
 
