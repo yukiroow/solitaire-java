@@ -12,7 +12,7 @@ This project is written with `Java JDK 25.0.4` and built using `Maven`.
 1. Clone Repository
 
 ```shell
-git clone https://github.com/yukiroow/war-cards-java.git
+git clone https://github.com/yukiroow/solitaire-java.git
 ```
 
 2. Open project in your Java IDE (Maven)
@@ -22,7 +22,7 @@ git clone https://github.com/yukiroow/war-cards-java.git
 ## Original Specification
 
 ### Classic Solitaire: Klondike Solitaire
-
+ 
 Sometimes called by the generic name 'Solitaire' (eg Microsoft's Solitaire is actually Klondike Solitaire). This is
 probably the most widely known solitaire game in the world, so is naturally a favourite. Klondike Solitaire involves a
 fair amount of luck, but there is still some skill involved. The success rate is moderate.
@@ -48,4 +48,3 @@ You may cycle through the **talon** an unlimited number of times.
 
 ## My Game Flow Algorithm
 
-TODO
