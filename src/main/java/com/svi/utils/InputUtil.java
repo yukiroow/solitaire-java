@@ -1,5 +1,13 @@
 package com.svi.utils;
 
+import com.svi.enums.Rank;
+import com.svi.enums.Suit;
+import com.svi.models.Card;
+import com.svi.models.Deck;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -18,5 +26,23 @@ public class InputUtil {
                 System.out.println("Please enter a valid value.");
             }
         }
+    }
+
+    public static Deck loadDeck(InputStream deckStream) {
+        Scanner fileScanner;
+        ArrayList<Card> deck = new ArrayList<>();
+        try {
+            fileScanner = new Scanner(deckStream);
+            String[] rawCards = fileScanner.nextLine().split(",");
+            for (String card : rawCards) {
+                String[] splitCard = card.split("-");
+                String strSuit = splitCard[0];
+                String strRank = splitCard[1];
+                deck.add(new Card(Suit.valueOf(strSuit), Rank.valueOf(strRank)));
+            }
+        } catch (NoSuchElementException nsee) {
+            System.out.println("There was a problem with the input file." + nsee);
+        }
+        return new Deck(deck);
     }
 }
