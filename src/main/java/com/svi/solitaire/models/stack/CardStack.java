@@ -1,6 +1,6 @@
-package com.svi.models.stack;
+package com.svi.solitaire.models.stack;
 
-import com.svi.models.Card;
+import com.svi.solitaire.models.Card;
 
 public interface CardStack {
     Card peek();

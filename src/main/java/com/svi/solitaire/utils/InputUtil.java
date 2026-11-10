@@ -1,9 +1,9 @@
-package com.svi.utils;
+package com.svi.solitaire.utils;
 
-import com.svi.enums.Rank;
-import com.svi.enums.Suit;
-import com.svi.models.Card;
-import com.svi.models.Deck;
+import com.svi.solitaire.enums.Rank;
+import com.svi.solitaire.enums.Suit;
+import com.svi.solitaire.models.Card;
+import com.svi.solitaire.models.Deck;
 
 import java.io.InputStream;
 import java.util.ArrayList;

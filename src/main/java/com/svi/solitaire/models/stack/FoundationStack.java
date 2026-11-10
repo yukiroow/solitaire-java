@@ -1,8 +1,8 @@
-package com.svi.models.stack;
+package com.svi.solitaire.models.stack;
 
-import com.svi.models.Card;
+import com.svi.solitaire.models.Card;
 
-public class TalonStack implements CardStack {
+public class FoundationStack implements CardStack {
     @Override
     public Card peek() {
         return null;
@@ -13,4 +13,3 @@ public class TalonStack implements CardStack {
 
     }
 }
-

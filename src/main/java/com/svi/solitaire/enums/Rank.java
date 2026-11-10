@@ -1,4 +1,4 @@
-package com.svi.enums;
+package com.svi.solitaire.enums;
 
 public enum Rank {
     ACE(1),
