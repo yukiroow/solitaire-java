@@ -1,16 +1,16 @@
-package com.svi.solitaire.models.stack;
+package com.svi.solitaire.models.pile;
 
 import com.svi.solitaire.models.Card;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class ManoeuvreStack implements CardStack {
+public class ManoeuvrePile implements CardPile {
     private int stackId;
     private Deque<Card> hiddenCards;
     private Deque<Card> visibleCards;
 
-    public ManoeuvreStack(int stackId) {
+    public ManoeuvrePile(int stackId) {
         this.stackId = stackId;
         hiddenCards = new ArrayDeque<>();
         visibleCards = new ArrayDeque<>();
