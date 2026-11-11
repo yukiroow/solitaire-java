@@ -27,22 +27,4 @@ public class InputUtil {
             }
         }
     }
-
-    public static Deck loadDeck(InputStream deckStream) {
-        Scanner fileScanner;
-        ArrayList<Card> deck = new ArrayList<>();
-        try {
-            fileScanner = new Scanner(deckStream);
-            String[] rawCards = fileScanner.nextLine().split(",");
-            for (String card : rawCards) {
-                String[] splitCard = card.split("-");
-                String strSuit = splitCard[0];
-                String strRank = splitCard[1];
-                deck.add(new Card(Suit.valueOf(strSuit), Rank.valueOf(strRank)));
-            }
-        } catch (NoSuchElementException nsee) {
-            System.out.println("There was a problem with the input file." + nsee);
-        }
-        return new Deck(deck);
-    }
 }

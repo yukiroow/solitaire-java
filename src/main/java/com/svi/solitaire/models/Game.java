@@ -1,30 +1,30 @@
 package com.svi.solitaire.models;
 
-import com.svi.solitaire.App;
-import com.svi.solitaire.models.stack.FoundationStack;
-import com.svi.solitaire.models.stack.ManoeuvreStack;
-import com.svi.solitaire.models.stack.TalonStack;
+import com.svi.solitaire.models.pile.FoundationPile;
+import com.svi.solitaire.models.pile.ManoeuvrePile;
+import com.svi.solitaire.models.pile.TalonPile;
 import com.svi.solitaire.utils.CardUtil;
-import com.svi.solitaire.utils.InputUtil;
+import com.svi.solitaire.utils.FileUtil;
 
 public class Game {
     private Deck deck;
-    private FoundationStack[] foundationStacks;
-    private ManoeuvreStack[] manoeuvreStacks;
-    private TalonStack talonStack;
+    private FoundationPile[] foundationStacks;
+    private ManoeuvrePile[] manoeuvreStacks;
+    private TalonPile talonStack;
 
     public Game() {
-        deck = InputUtil.loadDeck(App.class.getResourceAsStream("/deck.csv"));
-        manoeuvreStacks = new ManoeuvreStack[7];
+        // TODO: Read from config
+        deck = FileUtil.loadDeckFromFile("/deck.csv");
+        manoeuvreStacks = new ManoeuvrePile[7];
 
         for (int i = 1; i <= manoeuvreStacks.length; i++) {
-            manoeuvreStacks[i - 1] = new ManoeuvreStack(i);
+            manoeuvreStacks[i - 1] = new ManoeuvrePile(i);
         }
 
         Deck remainingCards = CardUtil.dealManoeuvreCards(deck, manoeuvreStacks);
-        talonStack = new TalonStack(remainingCards);
+        talonStack = new TalonPile(remainingCards);
 
-        for (ManoeuvreStack manoeuvreStack : manoeuvreStacks) {
+        for (ManoeuvrePile manoeuvreStack : manoeuvreStacks) {
             System.out.println(manoeuvreStack);
         }
     }
