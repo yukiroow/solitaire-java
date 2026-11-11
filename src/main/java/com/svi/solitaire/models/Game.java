@@ -22,7 +22,7 @@ public class Game {
         }
 
         Deck remainingCards = CardUtil.dealManoeuvreCards(deck, manoeuvreStacks);
-        talonStack = new TalonPile(remainingCards);
+        talonStack = new TalonPile(remainingCards, 3); // TODO: Read drawSetting from input
 
         for (ManoeuvrePile manoeuvreStack : manoeuvreStacks) {
             System.out.println(manoeuvreStack);
