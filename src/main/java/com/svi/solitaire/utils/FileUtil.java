@@ -21,7 +21,9 @@ public class FileUtil {
         File deckFile = new File(inputFileName);
         try (InputStream rawFileStream = new FileInputStream(deckFile)) {
             fileScanner = new Scanner(Objects.requireNonNull(rawFileStream));
-            rawFile = fileScanner.nextLine();
+            while (fileScanner.hasNextLine()) {
+                rawFile += fileScanner.nextLine().trim();
+            }
         } catch (FileNotFoundException fnfe) {
             System.out.println("Input file not found. Please verify and try again.");
             System.exit(1);
