@@ -11,30 +11,30 @@ import java.util.Objects;
  * @author Harry Dominguez
  * @since 1.0
  */
-public record Card(Rank rank, Suit suit) {
+public record Card(Rank rank, Suit suit) implements Comparable<Card> {
     /**
-     * Compares two Cards for order based on their rank and suit.
+     * Compares this Card and a given card for order based on their rank and suit.
      *
      * <p>
-     * The primary criteria is the card's rank. If the rank's are equal, they are compared by their suit.
+     * The primary criteria is the card's rank. If the ranks are equal, they are compared by their suit.
      * </p>
      *
-     * @param a the first Card to be compared
-     * @param b the second Card to be compared
+     * @param otherCard the second Card to be compared
      * @return {@code 1} if Card {@code a} is greater than card {@code b};
      * {@code -1} if Card {@code a} is less than card {@code b};
      * {@code 0} if Card {@code a} is equal to card {@code b};
      */
-    public static int compare(Card a, Card b) {
-        if (a.rank().getValue() > b.rank().getValue()) {
+    @Override
+    public int compareTo(Card otherCard) {
+        if (this.rank().getValue() > otherCard.rank().getValue()) {
             return 1;
-        } else if (a.rank().getValue() < b.rank().getValue()) {
+        } else if (this.rank().getValue() < otherCard.rank().getValue()) {
             return -1;
         }
 
-        if (a.suit().getValue() > b.suit().getValue()) {
+        if (this.suit().getValue() > otherCard.suit().getValue()) {
             return 1;
-        } else if (a.suit().getValue() < b.suit().getValue()) {
+        } else if (this.suit().getValue() < otherCard.suit().getValue()) {
             return -1;
         }
 
