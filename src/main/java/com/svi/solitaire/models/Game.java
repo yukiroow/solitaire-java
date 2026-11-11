@@ -11,10 +11,11 @@ public class Game {
     private FoundationPile[] foundationStacks;
     private ManoeuvrePile[] manoeuvreStacks;
     private TalonPile talonStack;
+    private int rounds;
 
-    public Game() {
+    private Game(Deck deck) {
         // TODO: Read from config
-        deck = FileUtil.loadDeckFromFile("/deck.csv");
+        this.deck = deck;
         manoeuvreStacks = new ManoeuvrePile[7];
 
         for (int i = 1; i <= manoeuvreStacks.length; i++) {
