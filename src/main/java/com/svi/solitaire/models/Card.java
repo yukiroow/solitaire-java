@@ -6,7 +6,7 @@ import com.svi.solitaire.enums.Suit;
 import java.util.Objects;
 
 /**
- * Represents a Card in the War Cards game.
+ * Represents a Card in the Solitaire game.
  *
  * @author Harry Dominguez
  * @since 1.0
