@@ -1,5 +1,6 @@
 package com.svi.solitaire.utils;
 
+import com.svi.solitaire.enums.Shuffle;
 import com.svi.solitaire.models.Card;
 import com.svi.solitaire.models.Deck;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
@@ -14,14 +15,19 @@ public class CardUtil {
         return shuffledDeck;
     }
 
-    public static Deck doOutFaroShuffle(Deck deck) {
+    public static Deck doFaroShuffle(Deck deck, Shuffle shuffleType) {
         int mid = deck.getCards().size() / 2;
         ArrayList<Card> newDeck = new ArrayList<>();
         ArrayList<Card> firstHalf = new ArrayList<>(deck.getCards().subList(0, mid));
         ArrayList<Card> secondHalf = new ArrayList<>(deck.getCards().subList(mid, deck.getCards().size()));
         for (int i = 0; i < mid; i++) {
-            newDeck.add(firstHalf.get(i));
-            newDeck.add(secondHalf.get(i));
+            if (shuffleType == Shuffle.OUT_FARO) {
+                newDeck.add(firstHalf.get(i));
+                newDeck.add(secondHalf.get(i));
+            } else {
+                newDeck.add(secondHalf.get(i));
+                newDeck.add(firstHalf.get(i));
+            }
         }
         return new Deck(newDeck);
     }
