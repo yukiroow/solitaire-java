@@ -9,18 +9,27 @@ import java.io.*;
 import java.util.*;
 
 public class FileUtil {
+    public static InputStream getInputStreamFromArg(String[] args) throws FileNotFoundException {
+        if (args.length != 1) {
+            System.out.println("Usage: java -jar harrydom-solitaire.jar <deck file>");
+            System.exit(1);
+        }
+        String inputFileName = args[0];
+        File deckFile = new File(inputFileName);
+        return new FileInputStream(deckFile);
+    }
+
     /**
-     * This returns a Deck object parsed from the given input file.
+     * This returns a Deck object parsed from the program arguments
      *
-     * @param inputFileName the InputStream of the input file
+     * @param args the String program arguments
      * @return the Deck object parsed from the file
      */
-    public static Deck loadDeckFromFile(String inputFileName) {
+    public static Deck loadDeckFromFile(String[] args) {
         Scanner fileScanner;
         String rawFile = "";
-        File deckFile = new File(inputFileName);
-        try (InputStream rawFileStream = new FileInputStream(deckFile)) {
-            fileScanner = new Scanner(Objects.requireNonNull(rawFileStream));
+        try (InputStream argInputStream = getInputStreamFromArg(args)) {
+            fileScanner = new Scanner(Objects.requireNonNull(argInputStream));
             while (fileScanner.hasNextLine()) {
                 rawFile += fileScanner.nextLine().trim();
             }
