@@ -13,20 +13,11 @@ public class Game {
     private TalonPile talonStack;
     private int rounds;
 
-    private Game(Deck deck) {
-        // TODO: Read from config
+    public Game(Deck deck, FoundationPile[] foundationStacks,  ManoeuvrePile[] manoeuvreStacks, TalonPile talonStack) {
         this.deck = deck;
-        manoeuvreStacks = new ManoeuvrePile[7];
-
-        for (int i = 1; i <= manoeuvreStacks.length; i++) {
-            manoeuvreStacks[i - 1] = new ManoeuvrePile(i);
-        }
-
-        Deck remainingCards = CardUtil.dealManoeuvreCards(deck, manoeuvreStacks);
-        talonStack = new TalonPile(remainingCards, 3); // TODO: Read drawSetting from input
-
-        for (ManoeuvrePile manoeuvreStack : manoeuvreStacks) {
-            System.out.println(manoeuvreStack);
-        }
+        this.foundationStacks = foundationStacks;
+        this.manoeuvreStacks = manoeuvreStacks;
+        this.talonStack = talonStack;
+        this.rounds = 1;
     }
 }

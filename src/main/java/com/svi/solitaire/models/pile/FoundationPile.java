@@ -3,14 +3,15 @@ package com.svi.solitaire.models.pile;
 import com.svi.solitaire.enums.Suit;
 import com.svi.solitaire.models.Card;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class FoundationPile implements CardPile {
     private Deque<Card> cards;
     private Suit pileSuit;
 
-    public FoundationPile(Deque<Card> cards) {
-        this.cards = cards;
+    public FoundationPile() {
+        this.cards = new ArrayDeque<>();
         pileSuit = null;
     }
 

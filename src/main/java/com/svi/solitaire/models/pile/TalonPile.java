@@ -12,7 +12,8 @@ public class TalonPile implements CardPile {
     private Deque<Card> wastePile;
 
     public TalonPile(Deck deck, int drawSetting) {
-        stockPile = new ArrayDeque<>(deck.getCards());
+        this.stockPile = new ArrayDeque<>(deck.getCards());
+        this.wastePile = new ArrayDeque<>();
         this.drawSetting = drawSetting;
     }
 
