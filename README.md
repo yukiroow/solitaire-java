@@ -2,7 +2,7 @@
 
 ## About
 
-This repository contains my CLI implementation of the Solitaire Game to be submitted as a deliverable for the Java
+This repository contains my CLI implementation of the Klondike Solitaire Game to be submitted as a deliverable for the Java
 Training Session
 
 This project is written with `Java JDK 25.0.4` and built using `Maven`.

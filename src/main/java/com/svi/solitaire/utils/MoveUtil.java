@@ -1,11 +1,11 @@
-package com.svi.solitaire.state;
+package com.svi.solitaire.utils;
 
 import com.svi.solitaire.models.Card;
 import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
 
-public class MoveManager {
+public class MoveUtil {
     public static void moveInManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile) {
         // TODO: Implement moko boy
     }
