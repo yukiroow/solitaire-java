@@ -1,4 +1,4 @@
-package com.svi.solitaire.utils;
+package com.svi.solitaire.io;
 
 import com.svi.solitaire.enums.Shuffle;
 import com.svi.solitaire.exceptions.InvalidInputException;
@@ -6,7 +6,7 @@ import com.svi.solitaire.exceptions.InvalidInputException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class InputUtil {
+public class InputReader {
     public static int readDrawCount(Scanner keyboardInput) {
         int choice;
         while (true) {

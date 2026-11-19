@@ -1,4 +1,4 @@
-package com.svi.solitaire.utils;
+package com.svi.solitaire.io;
 
 import com.svi.solitaire.enums.Rank;
 import com.svi.solitaire.enums.Suit;
@@ -8,7 +8,7 @@ import com.svi.solitaire.models.Deck;
 import java.io.*;
 import java.util.*;
 
-public class FileUtil {
+public class FileLoader {
     public static InputStream getInputStreamFromArg(String[] args) throws FileNotFoundException {
         if (args.length != 1) {
             System.out.println("Usage: java -jar harrydom-solitaire.jar <deck file>");

@@ -3,8 +3,6 @@ package com.svi.solitaire.models;
 import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
-import com.svi.solitaire.utils.CardUtil;
-import com.svi.solitaire.utils.FileUtil;
 
 public class Game {
     private Deck deck;

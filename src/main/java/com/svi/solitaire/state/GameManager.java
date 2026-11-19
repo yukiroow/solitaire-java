@@ -3,7 +3,7 @@ package com.svi.solitaire.state;
 import com.svi.solitaire.enums.Shuffle;
 import com.svi.solitaire.models.Deck;
 import com.svi.solitaire.models.Game;
-import com.svi.solitaire.utils.InputUtil;
+import com.svi.solitaire.io.InputReader;
 
 import java.util.Scanner;
 
@@ -29,7 +29,7 @@ public class GameManager {
     }
 
     private void readGameSettings() {
-        drawCount = InputUtil.readDrawCount(keyboardInput);
-        shuffleType = InputUtil.readShuffleType(keyboardInput);
+        drawCount = InputReader.readDrawCount(keyboardInput);
+        shuffleType = InputReader.readShuffleType(keyboardInput);
     }
 }
