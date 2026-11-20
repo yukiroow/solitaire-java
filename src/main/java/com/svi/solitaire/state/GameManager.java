@@ -17,7 +17,7 @@ public class GameManager {
 
     public GameManager() {
         keyboardInput = new Scanner(System.in);
-        gameRunning = false;
+        gameRunning = true;
     }
 
     public void run(String[] args) {

@@ -8,28 +8,32 @@ import java.util.Scanner;
 
 public class InputReader {
     public static int readDrawCount(Scanner keyboardInput) {
-        int choice;
-        while (true) {
+        int choice = 0;
+        boolean validInput = false;
+        while (!validInput) {
             System.out.println("""
                     ENTER DRAW TYPE
-                    1. Draw 1
-                    2. Draw 3""");
-            System.out.print("\n> ");
+                    1. Draw One
+                    2. Draw Three""");
             try {
-                choice = Integer.parseInt(keyboardInput.nextLine().trim());
-                if (choice < 1 || choice > 2) {
-                    throw new InvalidInputException();
-                }
-                return choice;
+                int numInput = readIntInput(keyboardInput);
+                choice = switch (numInput) {
+                    case 1 -> 1;
+                    case 2 -> 2;
+                    default -> throw new InvalidInputException();
+                };
+                validInput = true;
             } catch (InvalidInputException iie) {
                 System.out.println("Please enter a value from the given options.");
             }
         }
+        return choice;
     }
 
     public static Shuffle readShuffleType(Scanner keyboardInput) {
-        Shuffle choice;
-        while (true) {
+        Shuffle choice = null;
+        boolean validInput = false;
+        while (!validInput) {
             System.out.println("""
                     ENTER SHUFFLE TYPE
                     1. Out-Faro Shuffle
@@ -45,11 +49,31 @@ public class InputReader {
                     case 4 -> Shuffle.AS_IS;
                     default -> throw new InvalidInputException();
                 };
-                return choice;
+                validInput = true;
             } catch (InvalidInputException iie) {
                 System.out.println("Please select a valid option.");
             }
         }
+        return choice;
+    }
+
+    public static boolean readExitGameChoice(Scanner keyboardInput) {
+        boolean choice = false;
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                int numInput = readIntInput(keyboardInput);
+                choice = switch (numInput) {
+                    case 1 -> true;
+                    case 2 -> false;
+                    default -> throw new InvalidInputException();
+                };
+                validInput = true;
+            } catch (InvalidInputException iie) {
+                System.out.println("Please select a valid option.");
+            }
+        }
+        return choice;
     }
 
     private static int readIntInput(Scanner keyboardInput) {
