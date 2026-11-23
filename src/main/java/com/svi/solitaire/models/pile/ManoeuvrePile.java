@@ -20,8 +20,12 @@ public class ManoeuvrePile implements CardPile {
         return stackId;
     }
 
-    public int getHiddenCardsSize() {
-        return hiddenCards.size();
+    public Deque<Card> getHiddenCards() {
+        return hiddenCards;
+    }
+
+    public Deque<Card> getVisibleCards() {
+        return visibleCards;
     }
 
     public boolean isSetupComplete() {

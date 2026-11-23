@@ -31,8 +31,12 @@ public class TalonPile implements CardPile {
         return stockPile;
     }
 
-    public int getWastePileSize() {
-        return wastePile.size();
+    public int getStockPileSize() {
+        return stockPile.size();
+    }
+
+    public Deque<Card> getWastePile() {
+        return wastePile;
     }
 
     public void resetPile() {
