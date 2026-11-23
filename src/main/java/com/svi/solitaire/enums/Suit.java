@@ -7,17 +7,19 @@ package com.svi.solitaire.enums;
  * @since 1.0
  */
 public enum Suit {
-    C(1), S(2), H(3), D(4);
+    C(1, "BLACK"), S(2, "BLACK"), H(3, "RED"), D(4, "RED");
 
     private final int value;
+    private final String color;
 
     /**
      * Constructs a Suit with an associated numeric value.
      *
      * @param value the numeric value of the card
      */
-    Suit(int value) {
+    Suit(int value, String color) {
         this.value = value;
+        this.color = color;
     }
 
     /**
@@ -27,5 +29,9 @@ public enum Suit {
      */
     public int getValue() {
         return this.value;
+    }
+
+    public String getColor() {
+        return color;
     }
 }

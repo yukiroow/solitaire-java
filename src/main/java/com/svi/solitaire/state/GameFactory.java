@@ -21,6 +21,6 @@ public class GameFactory {
         Deck remainingCards = CardUtil.dealManoeuvreCards(shuffledDeck, manoeuvrePiles);
         TalonPile talonPile = new TalonPile(remainingCards, drawCount);
 
-        return new Game(shuffledDeck, foundationPiles, manoeuvrePiles, talonPile);
+        return new Game(foundationPiles, manoeuvrePiles, talonPile);
     }
 }

@@ -31,11 +31,9 @@ public class FoundationPile implements CardPile {
             }
             return false;
         }
-
-        if (!card.suit().equals(pileSuit)) {
+        if (card.suit() != pileSuit) {
             return false;
         }
-
         int topCardRank = peek().rank().getValue();
         int givenCardRank = card.rank().getValue();
         if (topCardRank == givenCardRank - 1) {

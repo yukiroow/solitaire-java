@@ -38,8 +38,8 @@ public class CardUtil {
         int cutoffIndex = 0;
 
         for (int i = 0; i < deck.getCards().size(); i++) {
-            ManoeuvrePile stack = manoeuvreStacks[stackIndex];
-            if (stack.isSetupComplete()) {
+            ManoeuvrePile currPile = manoeuvreStacks[stackIndex];
+            if (currPile.isSetupComplete()) {
                 fullStacks++;
                 if (fullStacks == manoeuvreStacks.length) {
                     cutoffIndex = i;
@@ -48,8 +48,8 @@ public class CardUtil {
                 i--;
             } else {
                 Card card = deck.getCards().get(i);
-                boolean visible = stack.getStackId() - 1 == stack.getHiddenCardsSize();
-                stack.appendCard(card, visible);
+                boolean visible = currPile.getPileId() - 1 == currPile.getHiddenCardsSize();
+                currPile.appendCard(card, visible);
                 fullStacks = 0;
             }
             stackIndex = (stackIndex + 1) % manoeuvreStacks.length;

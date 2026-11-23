@@ -7,18 +7,18 @@ import java.util.Deque;
 import java.util.Iterator;
 
 public class ManoeuvrePile implements CardPile {
-    private int stackId;
+    private int pileId;
     private Deque<Card> hiddenCards;
     private Deque<Card> visibleCards;
 
-    public ManoeuvrePile(int stackId) {
-        this.stackId = stackId;
+    public ManoeuvrePile(int pileId) {
+        this.pileId = pileId;
         hiddenCards = new ArrayDeque<>();
         visibleCards = new ArrayDeque<>();
     }
 
-    public int getStackId() {
-        return stackId;
+    public int getPileId() {
+        return pileId;
     }
 
     public boolean isVisibleCardsEmpty() {
@@ -26,12 +26,20 @@ public class ManoeuvrePile implements CardPile {
     }
 
     public void revealCard() {
+        if(hiddenCards.isEmpty()) {
+            return;
+        }
         Card newCard = hiddenCards.pollLast();
-        visibleCards.push(newCard);
+        visibleCards.add(newCard);
+        System.out.println("PILE " + getPileId() + " CARD REVEALED");
     }
 
     public Iterator<Card> getVisibleCardsIterator() {
         return visibleCards.iterator();
+    }
+
+    public Iterator<Card> getHiddenCardsIterator() {
+        return hiddenCards.iterator();
     }
 
     public int getHiddenCardsSize() {
@@ -39,7 +47,7 @@ public class ManoeuvrePile implements CardPile {
     }
 
     public boolean isSetupComplete() {
-        return hiddenCards.size() + visibleCards.size() == stackId;
+        return hiddenCards.size() + visibleCards.size() == pileId;
     }
 
     @Override
@@ -57,7 +65,7 @@ public class ManoeuvrePile implements CardPile {
             visibleCards.add(card);
             return;
         }
-        hiddenCards.push(card);
+        hiddenCards.add(card);
     }
 
     @Override

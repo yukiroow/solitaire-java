@@ -5,6 +5,7 @@ import com.svi.solitaire.models.Deck;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 public class TalonPile implements CardPile {
     private final int drawSetting;
@@ -19,7 +20,7 @@ public class TalonPile implements CardPile {
 
     @Override
     public Card peek() {
-        return null;
+        return wastePile.peek();
     }
 
     @Override
@@ -27,21 +28,29 @@ public class TalonPile implements CardPile {
         return stockPile.add(card);
     }
 
-    public Deque<Card> getStockPile() {
-        return stockPile;
+    public Card playTopWaste() {
+        return wastePile.poll();
+    }
+
+    public boolean isStockEmpty() {
+        return stockPile.isEmpty();
+    }
+
+    public boolean isWasteEmpty() {
+        return wastePile.isEmpty();
+    }
+
+    public Iterator<Card> getWastePileIterator() {
+        return wastePile.iterator();
     }
 
     public int getStockPileSize() {
         return stockPile.size();
     }
 
-    public Deque<Card> getWastePile() {
-        return wastePile;
-    }
-
     public void resetPile() {
         for (Card card : wastePile) {
-            stockPile.addLast(card);
+            appendCard(card);
         }
         wastePile.clear();
     }
@@ -49,7 +58,9 @@ public class TalonPile implements CardPile {
     public void drawCards() {
         for (int count = 0; count < drawSetting; count++) {
             Card currCard = stockPile.poll();
-            wastePile.addFirst(currCard);
+            if (currCard != null) {
+                wastePile.push(currCard);
+            }
         }
     }
 }

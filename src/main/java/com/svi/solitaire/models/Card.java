@@ -56,13 +56,11 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card> {
      */
     @Override
     public String toString() {
-        String symbol = switch (suit) {
-            case Suit.D -> "♦";
-            case Suit.H -> "♥";
-            case Suit.S -> "♠";
-            case Suit.C -> "♣";
+        String rankDisplay = switch (rank.getValue()) {
+            case 1, 11, 12, 13 -> rank.toString();
+            default -> String.valueOf(rank.getValue());
         };
-        return (suit.getValue() > 2 ? "\u001B[48;2;224;17;95m\u001B[30m" : "\u001B[40m\u001B[37m") + symbol + suit + "-" + (rank.getValue() < 11 ? rank.getValue() : rank) + "\u001B[0m";
+        return suit + "-" + rankDisplay;
     }
 
     /**
@@ -91,11 +89,17 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card> {
     }
 
     public boolean isAppendableTo(Card otherCard) {
-        if (!this.suit().equals(otherCard.suit())) {
+        if (otherCard == null) {
+            return this.rank() == Rank.K;
+        }
+        String cardColor = this.suit().getColor();
+        String otherCardColor = otherCard.suit().getColor();
+        if (cardColor.compareTo(otherCardColor) == 0) {
             return false;
         }
         int cardRank = this.rank().getValue();
         int otherCardRank = otherCard.rank().getValue();
-        return cardRank - otherCardRank == 1;
+
+        return otherCardRank - cardRank == 1;
     }
 }
