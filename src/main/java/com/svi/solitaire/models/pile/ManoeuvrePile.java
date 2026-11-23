@@ -1,5 +1,6 @@
 package com.svi.solitaire.models.pile;
 
+import com.svi.solitaire.enums.CardVisibility;
 import com.svi.solitaire.models.Card;
 
 import java.util.ArrayDeque;
@@ -10,9 +11,11 @@ public class ManoeuvrePile implements CardPile {
     private int pileId;
     private Deque<Card> hiddenCards;
     private Deque<Card> visibleCards;
+    private CardVisibility cardVisibilitySetting;
 
-    public ManoeuvrePile(int pileId) {
+    public ManoeuvrePile(int pileId, CardVisibility cardVisibilitySetting) {
         this.pileId = pileId;
+        this.cardVisibilitySetting = cardVisibilitySetting;
         hiddenCards = new ArrayDeque<>();
         visibleCards = new ArrayDeque<>();
     }
@@ -26,7 +29,7 @@ public class ManoeuvrePile implements CardPile {
     }
 
     public void revealCard() {
-        if(hiddenCards.isEmpty()) {
+        if (hiddenCards.isEmpty()) {
             return;
         }
         Card newCard = hiddenCards.pollLast();

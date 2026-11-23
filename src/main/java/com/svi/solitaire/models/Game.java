@@ -21,6 +21,22 @@ public class Game {
         this.rounds = 1;
     }
 
+    public ManoeuvrePile[] getManoeuvrePiles() {
+        return manoeuvrePiles;
+    }
+
+    public FoundationPile[] getFoundationPiles() {
+        return foundationPiles;
+    }
+
+    public TalonPile getTalonPile() {
+        return talonPile;
+    }
+
+    public int getRounds() {
+        return rounds;
+    }
+
     public void run() {
         boolean instanceRunning = true;
         while (instanceRunning) {

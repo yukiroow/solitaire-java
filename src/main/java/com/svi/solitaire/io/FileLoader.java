@@ -2,46 +2,32 @@ package com.svi.solitaire.io;
 
 import com.svi.solitaire.enums.Rank;
 import com.svi.solitaire.enums.Suit;
+import com.svi.solitaire.exceptions.InvalidDeckFileException;
 import com.svi.solitaire.models.Card;
 import com.svi.solitaire.models.Deck;
 
-import java.io.*;
+import java.io.InputStream;
 import java.util.*;
 
 public class FileLoader {
-    public static InputStream getInputStreamFromArg(String[] args) throws FileNotFoundException {
-        if (args.length != 1) {
-            System.out.println("Usage: java -jar harrydom-solitaire.jar <deck file>");
-            System.exit(1);
-        }
-        String inputFileName = args[0];
-        File deckFile = new File(inputFileName);
-        return new FileInputStream(deckFile);
-    }
-
     /**
      * This returns a Deck object parsed from the program arguments
      *
      * @param args the String program arguments
      * @return the Deck object parsed from the file
      */
-    public static Deck loadDeckFromFile(String[] args) {
+    public static Deck loadDeckFromFile(InputStream deckInputStream) {
         Scanner fileScanner;
         String rawFile = "";
-        try (InputStream argInputStream = getInputStreamFromArg(args)) {
-            fileScanner = new Scanner(Objects.requireNonNull(argInputStream));
+        try {
+            fileScanner = new Scanner(Objects.requireNonNull(deckInputStream));
             while (fileScanner.hasNextLine()) {
                 rawFile += fileScanner.nextLine().trim();
             }
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("Input file not found. Please verify and try again.");
-            System.exit(1);
-        } catch (NullPointerException | IOException e) {
-            System.out.println("There was an unexpected problem with the input file. Please verify and try again.");
-            System.exit(1);
+        } catch (NullPointerException npe) {
+            throw new InvalidDeckFileException("There was an unexpected problem with the input file. Please verify and try again.");
         } catch (NoSuchElementException nsee) {
-            System.out.println("The input file is empty.\nPlease verify resources directory.");
-            System.exit(1);
+            throw new InvalidDeckFileException("The input file is empty.\nPlease verify resources directory.");
         }
 
         return parseToDeck(rawFile);
@@ -120,9 +106,7 @@ public class FileLoader {
 
         List<Card> filteredCards = new ArrayList<>(parsedCards);
 
-        filteredCards = filteredCards.stream()
-                .distinct()
-                .toList();
+        filteredCards = filteredCards.stream().distinct().toList();
 
         return filteredCards.size() == 52;
     }
