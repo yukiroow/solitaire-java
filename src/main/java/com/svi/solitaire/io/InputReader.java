@@ -61,6 +61,10 @@ public class InputReader {
         boolean choice = false;
         boolean validInput = false;
         while (!validInput) {
+            System.out.println("""
+                    GAME HAS ENDED
+                    1. Play Again
+                    2. Exit Game""");
             try {
                 int numInput = readIntInput(keyboardInput);
                 choice = switch (numInput) {

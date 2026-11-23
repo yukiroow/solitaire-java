@@ -24,7 +24,7 @@ public class CardUtil {
             if (shuffleType == Shuffle.OUT_FARO) {
                 newDeck.add(firstHalf.get(i));
                 newDeck.add(secondHalf.get(i));
-            } else {
+            } else if (shuffleType == Shuffle.IN_FARO) {
                 newDeck.add(secondHalf.get(i));
                 newDeck.add(firstHalf.get(i));
             }

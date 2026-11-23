@@ -25,11 +25,12 @@ public class GameManager {
             readGameSettings();
             gameDeck = DeckFactory.createDeck(args, shuffleType);
             gameInstance = GameFactory.createGame(gameDeck, drawCount);
+            gameRunning = InputReader.readExitGameChoice(keyboardInput);
         }
     }
 
     private void readGameSettings() {
         drawCount = InputReader.readDrawCount(keyboardInput);
-        shuffleType = InputReader.readShuffleType(keyboardInput);
+        shuffleType = InputReader.readShuffleType(keyboardInput); 
     }
 }
