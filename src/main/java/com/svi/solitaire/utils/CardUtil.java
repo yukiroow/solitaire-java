@@ -48,7 +48,7 @@ public class CardUtil {
                 i--;
             } else {
                 Card card = deck.getCards().get(i);
-                boolean visible = stack.getStackId() - 1 == stack.getHiddenCards().size();
+                boolean visible = stack.getStackId() - 1 == stack.getHiddenCardsSize();
                 stack.appendCard(card, visible);
                 fullStacks = 0;
             }

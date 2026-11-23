@@ -4,6 +4,7 @@ import com.svi.solitaire.models.Card;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 public class ManoeuvrePile implements CardPile {
     private int stackId;
@@ -20,12 +21,21 @@ public class ManoeuvrePile implements CardPile {
         return stackId;
     }
 
-    public Deque<Card> getHiddenCards() {
-        return hiddenCards;
+    public boolean isVisibleCardsEmpty() {
+        return visibleCards.isEmpty();
     }
 
-    public Deque<Card> getVisibleCards() {
-        return visibleCards;
+    public void revealCard() {
+        Card newCard = hiddenCards.pollLast();
+        visibleCards.push(newCard);
+    }
+
+    public Iterator<Card> getVisibleCardsIterator() {
+        return visibleCards.iterator();
+    }
+
+    public int getHiddenCardsSize() {
+        return hiddenCards.size();
     }
 
     public boolean isSetupComplete() {
@@ -34,17 +44,17 @@ public class ManoeuvrePile implements CardPile {
 
     @Override
     public Card peek() {
-        return visibleCards.peek();
+        return visibleCards.peekLast();
     }
 
     @Override
     public void appendCard(Card card) {
-        visibleCards.push(card);
+        visibleCards.add(card);
     }
 
     public void appendCard(Card card, boolean visible) {
         if (visible) {
-            visibleCards.push(card);
+            visibleCards.add(card);
             return;
         }
         hiddenCards.push(card);

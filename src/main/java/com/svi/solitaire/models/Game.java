@@ -4,7 +4,6 @@ import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
 
-import java.util.Deque;
 import java.util.Iterator;
 
 public class Game {
@@ -26,8 +25,9 @@ public class Game {
     // Reveals hidden card - 3 pts, Move card - 1 pt, Move to foundation - 2 pts
     public void run() {
         while (true) {
+            printRoundState();
+
             int highestScore = 0;
-            System.out.println("ROUND " + rounds);
 
 
         }
@@ -48,19 +48,20 @@ public class Game {
 
         System.out.println("\nMANOEUVRE PILES");
         for (ManoeuvrePile manoeuvrePile : manoeuvrePiles) {
-            Deque<Card> hiddenPile = manoeuvrePile.getHiddenCards();
-            Iterator<Card> visiblePileIterator = manoeuvrePile.getVisibleCards().iterator();
+            int hiddenCardsSize = manoeuvrePile.getHiddenCardsSize();
+            Iterator<Card> visiblePileIterator = manoeuvrePile.getVisibleCardsIterator();
 
             System.out.print("[" + (manoeuvrePile.getStackId()) + "] : ");
 
-            for (int cardIndex = 0; cardIndex < hiddenPile.size(); cardIndex++) {
+            for (int cardIndex = 0; cardIndex < hiddenCardsSize; cardIndex++) {
                 System.out.print("[ ? ]");
             }
 
             while (visiblePileIterator.hasNext()) {
-                Card card = visiblePileIterator.next();
-                System.out.printf("%-6s", "[" + card + "]");
+                Card currCard = visiblePileIterator.next();
+                System.out.printf("%-6s", "[" + currCard + "]");
             }
+
             System.out.println();
         }
         System.out.println("-----------------------------------------");
