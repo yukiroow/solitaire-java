@@ -25,6 +25,10 @@ public class MoveUtil {
     }
 
     public static void moveManoeuvreToFoundation(ManoeuvrePile sourcePile, FoundationPile targetPile) {
-        // TODO: Implement moko boy
+        Iterator<Card> sourceIterator = sourcePile.getVisibleCardsIterator();
+        while(sourceIterator.hasNext()) {
+            Card currCard = sourceIterator.next();
+            targetPile.appendCard(currCard);
+        }
     }
 }

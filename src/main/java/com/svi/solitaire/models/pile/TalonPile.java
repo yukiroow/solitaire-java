@@ -23,8 +23,8 @@ public class TalonPile implements CardPile {
     }
 
     @Override
-    public void appendCard(Card card) {
-        stockPile.addLast(card);
+    public boolean appendCard(Card card) {
+        return stockPile.add(card);
     }
 
     public Deque<Card> getStockPile() {

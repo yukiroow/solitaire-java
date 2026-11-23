@@ -1,5 +1,6 @@
 package com.svi.solitaire.models.pile;
 
+import com.svi.solitaire.enums.Rank;
 import com.svi.solitaire.enums.Suit;
 import com.svi.solitaire.models.Card;
 
@@ -17,24 +18,30 @@ public class FoundationPile implements CardPile {
 
     @Override
     public Card peek() {
-        return cards.peek();
+        return cards.peekLast();
     }
 
     @Override
-    public void appendCard(Card card) {
-        if (pileSuit == null && cards.isEmpty()) {
-            this.pileSuit = card.suit();
-            cards.push(card);
-            return;
+    public boolean appendCard(Card card) {
+        if (cards.isEmpty()) {
+            if (card.rank() == Rank.A) {
+                this.pileSuit = card.suit();
+                cards.add(card);
+                return true;
+            }
+            return false;
         }
 
         if (!card.suit().equals(pileSuit)) {
-            return;
+            return false;
         }
 
-        Card topCard = cards.peek();
-        if (card.isAppendableTo(topCard)) {
-            cards.push(card);
+        int topCardRank = peek().rank().getValue();
+        int givenCardRank = card.rank().getValue();
+        if (topCardRank == givenCardRank - 1) {
+            cards.add(card);
+            return true;
         }
+        return false;
     }
 }

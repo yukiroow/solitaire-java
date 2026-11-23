@@ -48,8 +48,8 @@ public class ManoeuvrePile implements CardPile {
     }
 
     @Override
-    public void appendCard(Card card) {
-        visibleCards.add(card);
+    public boolean appendCard(Card card) {
+        return visibleCards.add(card);
     }
 
     public void appendCard(Card card, boolean visible) {
