@@ -44,12 +44,7 @@ public class GameManager {
         TalonPile talonPile = gameInstance.getTalonPile();
         boolean instanceRunning = true;
         while (instanceRunning) {
-            int currRound = gameInstance.getRounds();
             ConsolePrinter.printDeckState(gameInstance);
-
-            if (currRound == 1000) {
-                System.exit(0);
-            }
 
             moveManoeuvre(manoeuvrePiles);
             moveFoundation(manoeuvrePiles, foundationPiles);
@@ -112,6 +107,7 @@ public class GameManager {
         Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);
         CardVisibility cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
         gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting);
+        ConsolePrinter.printGameSettings(gameSettings);
     }
 
     private void initGameInstance() {

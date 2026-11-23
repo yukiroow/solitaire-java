@@ -69,11 +69,11 @@ public class ConsolePrinter {
     }
 
     public static void printGameSettings(GameSettings gameSettings) {
+        String drawCountDisplay = gameSettings.getDrawCount() == 1 ? "1 Card" : "3 Cards";
         System.out.println("----------------------------------------");
         System.out.println("GAME SETTINGS");
-        System.out.printf("%-20s%d Cards%n", "Draw Count:", gameSettings.getDrawCount());
+        System.out.printf("%-20s%s%n", "Draw Count:", drawCountDisplay);
         System.out.printf("%-20s%s%n", "Shuffle Type:", gameSettings.getShuffleType());
         System.out.printf("%-20s%s%n", "Card Visibility:", gameSettings.getCardVisibilitySetting());
-        System.out.println("----------------------------------------");
     }
 }
