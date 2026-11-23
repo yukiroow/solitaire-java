@@ -11,9 +11,9 @@ import java.util.*;
 
 public class FileLoader {
     /**
-     * This returns a Deck object parsed from the program arguments
+     * This returns a Deck object parsed from given InputStream
      *
-     * @param args the String program arguments
+     * @param deckInputStream the given InputStream
      * @return the Deck object parsed from the file
      */
     public static Deck loadDeckFromFile(InputStream deckInputStream) {
