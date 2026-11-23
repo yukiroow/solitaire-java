@@ -42,4 +42,10 @@ public class FoundationPile implements CardPile {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        Card topCard = peek();
+        return topCard == null ? "[ - ]" : ("[" + topCard + "]");
+    }
 }

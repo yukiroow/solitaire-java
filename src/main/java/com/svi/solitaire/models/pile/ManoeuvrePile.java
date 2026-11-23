@@ -73,6 +73,26 @@ public class ManoeuvrePile implements CardPile {
 
     @Override
     public String toString() {
-        return hiddenCards.reversed() + " | " + visibleCards.toString();
+        StringBuilder sb = new StringBuilder();
+        int hiddenCardsSize = getHiddenCardsSize();
+        Iterator<Card> visiblePileIterator = getVisibleCardsIterator();
+        Iterator<Card> hiddenPileIterator = getHiddenCardsIterator();
+
+        if (cardVisibilitySetting == CardVisibility.VISIBLE) {
+            while (hiddenPileIterator.hasNext()) {
+                Card currCard = hiddenPileIterator.next();
+                sb.append("(").append(currCard).append(")");
+            }
+            sb.append("|");
+        } else {
+            sb.repeat("[ - ] ", hiddenCardsSize);
+        }
+
+        while (visiblePileIterator.hasNext()) {
+            Card currCard = visiblePileIterator.next();
+            sb.append("[").append(currCard).append("] ");
+        }
+
+        return sb.toString();
     }
 }

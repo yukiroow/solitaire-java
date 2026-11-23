@@ -63,5 +63,20 @@ public class TalonPile implements CardPile {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        Iterator<Card> wastePileIterator = wastePile.descendingIterator();
+        if (!wastePileIterator.hasNext()) {
+            sb.append("[ - ]");
+        } else {
+            while (wastePileIterator.hasNext()) {
+                Card currCard = wastePileIterator.next();
+                sb.append("[").append(currCard).append("] ");
+            }
+        }
+        return sb.toString();
+    }
 }
 
