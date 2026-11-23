@@ -2,29 +2,25 @@ package com.svi.solitaire.state;
 
 import com.svi.solitaire.enums.CardVisibility;
 import com.svi.solitaire.enums.Shuffle;
-import com.svi.solitaire.exceptions.InvalidDeckFileException;
 import com.svi.solitaire.io.ConsolePrinter;
 import com.svi.solitaire.io.InputReader;
 import com.svi.solitaire.models.Deck;
 import com.svi.solitaire.models.Game;
+import com.svi.solitaire.models.GameSettings;
 import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
 import com.svi.solitaire.utils.ArgsUtil;
 import com.svi.solitaire.utils.MoveUtil;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class GameManager {
     private final Scanner keyboardInput;
     private Game gameInstance;
-    private Deck gameDeck;
     private boolean gameRunning;
-    private int drawCount;
-    private Shuffle shuffleType;
-    private CardVisibility cardVisibilitySetting;
+    private GameSettings gameSettings;
     private String[] gameArgs;
 
     public GameManager(String[] args) {
@@ -35,6 +31,7 @@ public class GameManager {
 
     public void run() {
         while (gameRunning) {
+            initGameSettings();
             initGameInstance();
             startGameInstance();
             gameRunning = InputReader.readExitGameChoice(keyboardInput);
@@ -48,7 +45,7 @@ public class GameManager {
         boolean instanceRunning = true;
         while (instanceRunning) {
             int currRound = gameInstance.getRounds();
-            ConsolePrinter.printDeckState(currRound, talonPile, manoeuvrePiles, foundationPiles);
+            ConsolePrinter.printDeckState(gameInstance);
 
             if (currRound == 1000) {
                 System.exit(0);
@@ -110,18 +107,16 @@ public class GameManager {
         }
     }
 
-    private void initGameInstance() {
-        InputStream inputStream;
-        try {
-            inputStream = ArgsUtil.createInputStream(gameArgs);
-        } catch (IOException ioe) {
-            throw new InvalidDeckFileException("Specified Deck file not found.");
-        }
-        drawCount = InputReader.readDrawCount(keyboardInput);
-        shuffleType = InputReader.readShuffleType(keyboardInput);
+    private void initGameSettings() {
+        int drawCount = InputReader.readDrawCount(keyboardInput);
+        Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);
+        CardVisibility cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
+        gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting);
+    }
 
-        cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
-        gameDeck = DeckFactory.createDeck(inputStream, shuffleType);
-        gameInstance = GameFactory.createGame(gameDeck, drawCount, cardVisibilitySetting);
+    private void initGameInstance() {
+        InputStream inputStream = ArgsUtil.createInputStream(gameArgs);
+        Deck gameDeck = DeckFactory.createDeck(inputStream, gameSettings);
+        gameInstance = GameFactory.createGame(gameDeck, gameSettings);
     }
 }

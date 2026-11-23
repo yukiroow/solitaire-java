@@ -1,6 +1,8 @@
 package com.svi.solitaire.io;
 
 import com.svi.solitaire.models.Card;
+import com.svi.solitaire.models.Game;
+import com.svi.solitaire.models.GameSettings;
 import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
@@ -8,7 +10,12 @@ import com.svi.solitaire.models.pile.TalonPile;
 import java.util.Iterator;
 
 public class ConsolePrinter {
-    public static void printDeckState(int round, TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles) {
+    public static void printDeckState(Game gameInstance) {
+        int round = gameInstance.getRounds();
+        ManoeuvrePile[] manoeuvrePiles = gameInstance.getManoeuvrePiles();
+        FoundationPile[] foundationPiles = gameInstance.getFoundationPiles();
+        TalonPile talonPile = gameInstance.getTalonPile();
+
         System.out.println("-----------------------------------------");
         System.out.println("ROUND " + round);
 
@@ -59,5 +66,14 @@ public class ConsolePrinter {
             System.out.println();
         }
         System.out.println("-----------------------------------------");
+    }
+
+    public static void printGameSettings(GameSettings gameSettings) {
+        System.out.println("----------------------------------------");
+        System.out.println("GAME SETTINGS");
+        System.out.printf("%-20s%d Cards%n", "Draw Count:", gameSettings.getDrawCount());
+        System.out.printf("%-20s%s%n", "Shuffle Type:", gameSettings.getShuffleType());
+        System.out.printf("%-20s%s%n", "Card Visibility:", gameSettings.getCardVisibilitySetting());
+        System.out.println("----------------------------------------");
     }
 }

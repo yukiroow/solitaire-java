@@ -10,14 +10,20 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class ArgsUtil {
-    public static InputStream createInputStream(String[] args) throws FileNotFoundException {
+    public static InputStream createInputStream(String[] args) {
         if (args.length < 1) {
             printUsageGuide();
             throw new InvalidDeckFileException("Wrong number of arguments");
         }
-        String inputFileName = args[0];
-        File deckFile = new File(inputFileName);
-        return new FileInputStream(deckFile);
+        InputStream deckInputStream;
+        try {
+            String inputFileName = args[0];
+            File deckFile = new File(inputFileName);
+            deckInputStream = new FileInputStream(deckFile);
+        } catch (FileNotFoundException fnfe) {
+            throw new InvalidDeckFileException("Specified Deck File not found");
+        }
+        return deckInputStream;
     }
 
     public static CardVisibility parseCardVisibility(String[] args) {
