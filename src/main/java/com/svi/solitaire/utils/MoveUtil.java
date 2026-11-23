@@ -10,8 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MoveUtil {
-    public static void moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile) {
+    private static final int PRIORITY_MOVE = 2;
+    private static final int NORMAL_MOVE = 1;
 
+    public static void moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile) {
         List<Card> visibleCards = new ArrayList<>();
         Iterator<Card> iterator = sourcePile.getVisibleCardsIterator();
 
@@ -22,9 +24,8 @@ public class MoveUtil {
         Card targetCard = targetPile.peek();
 
         int highestScore = 0;
-        int bestMoveIndex = -1;
+        int bestCardIndex = -1;
 
-        // Evaluate all possible moves
         for (int i = 0; i < visibleCards.size(); i++) {
             Card currCard = visibleCards.get(i);
 
@@ -32,24 +33,22 @@ public class MoveUtil {
                 continue;
             }
 
-            // Score the possible move
-            int score = (i == 0) ? 2 : 1;
+            int score = (i == 0) ? PRIORITY_MOVE : NORMAL_MOVE;
 
             if (score > highestScore) {
                 highestScore = score;
-                bestMoveIndex = i;
+                bestCardIndex = i;
             }
         }
 
         // No valid moves available
-        if (bestMoveIndex == -1) {
+        if (bestCardIndex == -1) {
             return;
         }
 
-        // Execute the highest-scoring move
         iterator = sourcePile.getVisibleCardsIterator();
 
-        for (int i = 0; i < bestMoveIndex; i++) {
+        for (int currCardIndex = 0; currCardIndex < bestCardIndex; currCardIndex++) {
             iterator.next();
         }
 

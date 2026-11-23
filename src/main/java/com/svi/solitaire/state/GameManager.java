@@ -46,6 +46,9 @@ public class GameManager {
         while (instanceRunning) {
             ConsolePrinter.printDeckState(gameInstance);
 
+            System.out.println("""
+                    -----------------------------------------
+                    MOVES""");
             moveManoeuvre(manoeuvrePiles);
             moveFoundation(manoeuvrePiles, foundationPiles);
             moveTalon(talonPile, manoeuvrePiles, foundationPiles);
@@ -55,6 +58,7 @@ public class GameManager {
             }
             gameInstance.nextRound();
         }
+        ConsolePrinter.printGameSummary(gameInstance);
     }
 
     private void moveManoeuvre(ManoeuvrePile[] manoeuvrePiles) {

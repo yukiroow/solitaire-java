@@ -12,6 +12,7 @@ public class InputReader {
         boolean validInput = false;
         while (!validInput) {
             System.out.println("""
+                    -----------------------------------------
                     ENTER DRAW TYPE
                     1. Draw One
                     2. Draw Three""");
@@ -35,6 +36,7 @@ public class InputReader {
         boolean validInput = false;
         while (!validInput) {
             System.out.println("""
+                    -----------------------------------------
                     ENTER SHUFFLE TYPE
                     1. Out-Faro Shuffle
                     2. In-Faro Shuffle
@@ -62,6 +64,7 @@ public class InputReader {
         boolean validInput = false;
         while (!validInput) {
             System.out.println("""
+                    -----------------------------------------
                     GAME HAS ENDED
                     1. Play Again
                     2. Exit Game""");
