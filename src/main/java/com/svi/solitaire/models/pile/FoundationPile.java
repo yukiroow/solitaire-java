@@ -16,10 +16,6 @@ public class FoundationPile implements CardPile {
         pileSuit = null;
     }
 
-    public Suit getPileSuit() {
-        return pileSuit;
-    }
-
     @Override
     public Card peek() {
         return cards.peekLast();

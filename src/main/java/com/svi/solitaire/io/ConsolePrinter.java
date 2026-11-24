@@ -39,9 +39,10 @@ public class ConsolePrinter {
         System.out.printf("%-20s%s%n", "Card Visibility:", gameSettings.getCardVisibilitySetting());
     }
 
-    public static void printGameSummary(Game gameInstance) {
+    public static void printGameSummary(Game gameInstance, boolean isWin) {
         System.out.println("-----------------------------------------");
-        System.out.println("GAME SUMMARY");
+        System.out.println(isWin ? "GAME WON!" : "GAME LOST!");
+        System.out.println("SUMMARY");
         System.out.println("Total Rounds: " + gameInstance.getRounds());
         System.out.print("FOUNDATION PILES: ");
         for (FoundationPile foundationPile : gameInstance.getFoundationPiles()) {
@@ -59,7 +60,6 @@ public class ConsolePrinter {
                     (M-M) Manoeuvre to Manoeuvre move
                     (M-F) Manoeuvre to Foundation move
                     (T-M) Talon Waste to Manoeuvre move
-                    (T-F) Talon Waste to Foundation move
-                """);
+                    (T-F) Talon Waste to Foundation move""");
     }
 }

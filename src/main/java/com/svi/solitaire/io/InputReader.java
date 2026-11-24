@@ -65,7 +65,6 @@ public class InputReader {
         while (!validInput) {
             System.out.println("""
                     -----------------------------------------
-                    GAME HAS ENDED
                     1. Play Again
                     2. Exit Game""");
             try {

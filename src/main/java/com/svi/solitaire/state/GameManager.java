@@ -14,7 +14,9 @@ import com.svi.solitaire.utils.ArgsUtil;
 import com.svi.solitaire.utils.MoveUtil;
 
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class GameManager {
     private final Scanner keyboardInput;
@@ -44,22 +46,29 @@ public class GameManager {
         FoundationPile[] foundationPiles = gameInstance.getFoundationPiles();
         ManoeuvrePile[] manoeuvrePiles = gameInstance.getManoeuvrePiles();
         TalonPile talonPile = gameInstance.getTalonPile();
-        Map<String, Integer> gameStateFrequencies = new HashMap<>();
         boolean instanceRunning = true;
+        boolean isWin = false;
 
         while (instanceRunning) {
             ConsolePrinter.printDeckState(gameInstance);
+
             moveManoeuvre(manoeuvrePiles);
             moveFoundation(manoeuvrePiles, foundationPiles);
             moveTalon(talonPile, manoeuvrePiles, foundationPiles);
 
+            gameInstance.recordStateEntry();
+
             if (gameInstance.isGameWon()) {
+                instanceRunning = false;
+                isWin = true;
+            }
+            if (gameInstance.isGameOver()) {
                 instanceRunning = false;
             }
             gameInstance.nextRound();
         }
 
-        ConsolePrinter.printGameSummary(gameInstance);
+        ConsolePrinter.printGameSummary(gameInstance, isWin);
     }
 
     private void moveManoeuvre(ManoeuvrePile[] manoeuvrePiles) {

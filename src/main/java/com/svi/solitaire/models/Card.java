@@ -11,7 +11,18 @@ import java.util.Objects;
  * @author Harry Dominguez
  * @since 1.0
  */
-public record Card(Rank rank, Suit suit) implements Comparable<Card> {
+public class Card implements Comparable<Card> {
+    private Rank rank;
+    private Suit suit;
+
+    /**
+     *
+     */
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
     /**
      * Compares this Card and a given card for order based on their rank and suit.
      *
@@ -101,5 +112,13 @@ public record Card(Rank rank, Suit suit) implements Comparable<Card> {
         int otherCardRank = otherCard.rank().getValue();
 
         return otherCardRank - cardRank == 1;
+    }
+
+    public Rank rank() {
+        return rank;
+    }
+
+    public Suit suit() {
+        return suit;
     }
 }

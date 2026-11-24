@@ -1,6 +1,5 @@
 package com.svi.solitaire.utils;
 
-import com.svi.solitaire.enums.Rank;
 import com.svi.solitaire.models.Card;
 import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
@@ -15,33 +14,29 @@ public class MoveUtil {
     private static final int NORMAL_MOVE = 1;
 
     public static boolean moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile) {
+        Iterator<Card> sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
         Card targetCard = targetPile.peek();
-        List<Card> visibleCards = new ArrayList<>();
-        Iterator<Card> iterator = sourcePile.getVisibleCardsIterator();
-
-        iterator.forEachRemaining(visibleCards::add);
-
-        int bestCardIndex = getBestMoveCardIndex(visibleCards, targetCard);
+        int bestCardIndex = getBestMoveCardIndex(sourceVisibleCardIterator, targetCard);
 
         if (bestCardIndex == -1) {
             return false;
         }
 
-        iterator = sourcePile.getVisibleCardsIterator();
+        sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
         for (int currCardIndex = 0; currCardIndex < bestCardIndex; currCardIndex++) {
-            iterator.next();
+            sourceVisibleCardIterator.next();
         }
 
         boolean moveMade = false;
         Card prevCard = null;
-        while (iterator.hasNext()) {
-            Card currCard = iterator.next();
-            if (isSkippable(prevCard, currCard, targetCard)) {
+        while (sourceVisibleCardIterator.hasNext()) {
+            Card currCard = sourceVisibleCardIterator.next();
+            if (isSkippable(prevCard, targetCard)) {
                 continue;
             }
             if (targetPile.appendCard(currCard)) {
                 System.out.println("(M-M) MOVED: " + currCard + " -> Pile " + targetPile.getPileId());
-                iterator.remove();
+                sourceVisibleCardIterator.remove();
                 moveMade = true;
             }
             prevCard = currCard;
@@ -99,12 +94,15 @@ public class MoveUtil {
         }
     }
 
-    private static int getBestMoveCardIndex(List<Card> cards, Card targetCard) {
+    private static int getBestMoveCardIndex(Iterator<Card> iterator, Card targetCard) {
+        List<Card> visibleCards = new ArrayList<>();
         int highestScore = 0;
         int bestCardIndex = -1;
 
-        for (int currCardIndex = 0; currCardIndex < cards.size(); currCardIndex++) {
-            Card currCard = cards.get(currCardIndex);
+        iterator.forEachRemaining(visibleCards::add);
+
+        for (int currCardIndex = 0; currCardIndex < visibleCards.size(); currCardIndex++) {
+            Card currCard = visibleCards.get(currCardIndex);
             if (!currCard.isAppendableTo(targetCard)) {
                 continue;
             }
@@ -118,17 +116,7 @@ public class MoveUtil {
         return bestCardIndex;
     }
 
-    private static boolean isSkippable(Card prevCard, Card currCard, Card targetCard) {
-        // Prevent Move of Card to Same Rank Parent
-        if ((prevCard != null && targetCard != null) && prevCard.rank() == targetCard.rank()) {
-            return true;
-        }
-
-        // Prevent Move of King to Another Empty Pile
-        if (currCard.rank() == Rank.K && targetCard == null) {
-            return true;
-        }
-
-        return false;
+    private static boolean isSkippable(Card prevCard, Card targetCard) {
+        return (prevCard != null && targetCard != null) && prevCard.rank() == targetCard.rank();
     }
 }
