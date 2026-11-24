@@ -31,6 +31,11 @@ public enum Suit {
         return this.value;
     }
 
+    /**
+     * Returns the color String of this Suit
+     *
+     * @return the color String
+     */
     public String getColor() {
         return color;
     }
