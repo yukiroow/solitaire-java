@@ -14,6 +14,8 @@ import java.util.Scanner;
  * @since 1.0
  */
 public class InputReader {
+    private static final int GAME_LIMIT = 10_000;
+
     /**
      * This reads the Draw Count setting for the Game using the given Scanner object
      *
@@ -99,7 +101,7 @@ public class InputReader {
                 ENTER AMOUNT OF GAMES (Max. 10,000)""");
         try {
             games = readIntInput(keyboardInput);
-            if (games < 1) {
+            if (games < 1 || games > GAME_LIMIT) {
                 throw new InvalidInputException();
             }
         } catch (InvalidInputException iie) {
