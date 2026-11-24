@@ -136,7 +136,7 @@ public class GameManager {
             gameDeck.shuffle();
         }
 
-        double winRate = ((double) wins / losses) * 100;
+        double winRate = ((double) wins / gameSettings.getGameCount()) * 100;
         ConsolePrinter.printMultiGameSummary(gameSettings.getGameCount(), wins, losses, winRate);
     }
 
