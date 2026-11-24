@@ -96,14 +96,14 @@ public class InputReader {
         int games = 0;
         System.out.println("""
                 -----------------------------------------
-                ENTER AMOUNT OF GAMES""");
+                ENTER AMOUNT OF GAMES (Max. 10,000)""");
         try {
             games = readIntInput(keyboardInput);
             if (games < 1) {
                 throw new InvalidInputException();
             }
         } catch (InvalidInputException iie) {
-            System.out.println("Please enter a number greater than 0.");
+            System.out.println("Please enter an amount from 1 to 10,000");
         }
         return games;
     }
