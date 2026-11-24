@@ -31,6 +31,7 @@ public class GameManager {
     private GameSettings gameSettings;
     private String[] gameArgs;
     private InputStream deckInputStream;
+    private CardVisibility cardVisibilitySetting;
 
     /**
      * Construct a new Game Manager with the given program arguments.
@@ -51,10 +52,10 @@ public class GameManager {
      * </p>
      */
     public void run() {
-        ConsolePrinter.printGameIntroduction();
-
         while (gameRunning) {
+            cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
             deckInputStream = ArgsUtil.createInputStream(gameArgs);
+            ConsolePrinter.printGameIntroduction();
             initGameSettings();
             Deck gameDeck = DeckFactory.createDeck(deckInputStream, gameSettings);
 
@@ -243,7 +244,6 @@ public class GameManager {
         int drawCount = InputReader.readDrawCount(keyboardInput);
         Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);
         GameType gameType = GameType.SINGLE;
-        CardVisibility cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
 
         if (shuffleType == Shuffle.RANDOM) {
             gameType = InputReader.readGameType(keyboardInput);
