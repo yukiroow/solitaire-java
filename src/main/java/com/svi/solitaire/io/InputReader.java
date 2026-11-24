@@ -91,7 +91,7 @@ public class InputReader {
             System.out.println("Please enter a valid value.");
         } catch (NoSuchElementException nsee) {
             System.out.println("The scanner object has been forcibly closed.");
-            System.exit(1);
+            throw new RuntimeException(nsee);
         }
         return -1;
     }

@@ -13,7 +13,7 @@ public class MoveUtil {
     private static final int PRIORITY_MOVE = 2;
     private static final int NORMAL_MOVE = 1;
 
-    public static void moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile) {
+    public static boolean moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile) {
         List<Card> visibleCards = new ArrayList<>();
         Iterator<Card> iterator = sourcePile.getVisibleCardsIterator();
 
@@ -28,44 +28,40 @@ public class MoveUtil {
 
         for (int i = 0; i < visibleCards.size(); i++) {
             Card currCard = visibleCards.get(i);
-
             if (!currCard.isAppendableTo(targetCard)) {
                 continue;
             }
-
             int score = (i == 0) ? PRIORITY_MOVE : NORMAL_MOVE;
-
             if (score > highestScore) {
                 highestScore = score;
                 bestCardIndex = i;
             }
         }
 
-        // No valid moves available
         if (bestCardIndex == -1) {
-            return;
+            return false;
         }
 
         iterator = sourcePile.getVisibleCardsIterator();
-
         for (int currCardIndex = 0; currCardIndex < bestCardIndex; currCardIndex++) {
             iterator.next();
         }
 
+        boolean moveMade = false;
         while (iterator.hasNext()) {
             Card currCard = iterator.next();
-
             if (targetPile.appendCard(currCard)) {
                 System.out.println("(M-M) MOVED: " + currCard + " -> Pile " + targetPile.getPileId());
-
                 iterator.remove();
+                moveMade = true;
             }
         }
 
-        // Reveal the next card if all visible cards were moved
         if (sourcePile.isVisibleCardsEmpty()) {
             sourcePile.revealCard();
         }
+
+        return moveMade;
     }
 
     public static void moveManoeuvreToFoundation(ManoeuvrePile sourcePile, FoundationPile targetPile) {
@@ -84,21 +80,19 @@ public class MoveUtil {
         }
     }
 
-    public static boolean moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile) {
+    public static void moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile) {
         Card sourceCard = sourcePile.peek();
         Card targetCard = targetPile.peek();
         if (sourceCard == null) {
-            return false;
+            return;
         }
         if (!sourceCard.isAppendableTo(targetCard)) {
-            return false;
+            return;
         }
         sourceCard = sourcePile.playTopWaste();
         if (targetPile.appendCard(sourceCard)) {
             System.out.println("(T-M) MOVED: " + sourceCard + " -> " + targetCard);
-            return true;
         }
-        return false;
     }
 
     public static void moveTalonToFoundation(TalonPile sourcePile, FoundationPile targetPile) {

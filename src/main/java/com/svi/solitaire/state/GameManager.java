@@ -14,7 +14,9 @@ import com.svi.solitaire.utils.ArgsUtil;
 import com.svi.solitaire.utils.MoveUtil;
 
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class GameManager {
     private final Scanner keyboardInput;
@@ -62,6 +64,8 @@ public class GameManager {
     }
 
     private void moveManoeuvre(ManoeuvrePile[] manoeuvrePiles) {
+        Set<String> moves = new HashSet<>();
+
         for (int currManPileIndex = 0; currManPileIndex < manoeuvrePiles.length; currManPileIndex++) {
             ManoeuvrePile currManPile = manoeuvrePiles[currManPileIndex];
             for (int targetManPileIndex = 0; targetManPileIndex < manoeuvrePiles.length; targetManPileIndex++) {
@@ -69,7 +73,17 @@ public class GameManager {
                     continue;
                 }
                 ManoeuvrePile targetManPile = manoeuvrePiles[targetManPileIndex];
-                MoveUtil.moveManoeuvreToManoeuvre(currManPile, targetManPile);
+
+                String moveEntry = Math.min(currManPileIndex, targetManPileIndex) + "->" + Math.max(currManPileIndex, targetManPileIndex);
+                if (moves.contains(moveEntry)) {
+                    continue;
+                }
+
+                boolean moveMade = MoveUtil.moveManoeuvreToManoeuvre(currManPile, targetManPile);
+
+                if (moveMade) {
+                    moves.add(moveEntry);
+                }
             }
         }
     }
