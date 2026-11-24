@@ -227,7 +227,7 @@ public class MoveUtil {
      * Special Conditions:
      * </p>
      * <ul>
-     *     <li>Don't Skip if the previous Card is King, the target Card is blank, and the current pile has Hidden Cards</li>
+     *     <li>Don't Skip if the current Card is King, the target Card is blank, and the current pile has Hidden Cards</li>
      *     <li>Skip if the rank of the previous and target Cards are the same</li>
      * </ul>
      *
@@ -236,11 +236,11 @@ public class MoveUtil {
      * @return {@code true} if the current Card is skippable, {@code false} if otherwise
      */
     private static boolean isSkippable(Card prevCard, Card targetCard, boolean prevHasHidden) {
-        boolean prevIsKing = prevCard == null;
+        boolean currIsKing = prevCard == null;
         boolean targetIsBlank = targetCard == null;
-        boolean prevAndTargetIsSameRank = (!prevIsKing && !targetIsBlank) && prevCard.rank() == targetCard.rank();
+        boolean prevAndTargetIsSameRank = (!currIsKing && !targetIsBlank) && prevCard.rank() == targetCard.rank();
 
-        if (prevIsKing && targetIsBlank && prevHasHidden) return false;
+        if (currIsKing && targetIsBlank && prevHasHidden) return false;
 
         return prevAndTargetIsSameRank;
     }
