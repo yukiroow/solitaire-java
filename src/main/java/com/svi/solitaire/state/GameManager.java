@@ -1,6 +1,7 @@
 package com.svi.solitaire.state;
 
 import com.svi.solitaire.enums.CardVisibility;
+import com.svi.solitaire.enums.GameType;
 import com.svi.solitaire.enums.Shuffle;
 import com.svi.solitaire.io.ConsolePrinter;
 import com.svi.solitaire.io.InputReader;
@@ -19,11 +20,11 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class GameManager {
-    private final Scanner keyboardInput;
-    private Game gameInstance;
+    private Scanner keyboardInput;
     private boolean gameRunning;
     private GameSettings gameSettings;
     private String[] gameArgs;
+    private InputStream deckInputStream;
 
     public GameManager(String[] args) {
         this.gameArgs = args;
@@ -35,14 +36,23 @@ public class GameManager {
         ConsolePrinter.printGameIntroduction();
 
         while (gameRunning) {
+            deckInputStream = ArgsUtil.createInputStream(gameArgs);
             initGameSettings();
-            initGameInstance();
-            startGameInstance();
+            Deck gameDeck = DeckFactory.createDeck(deckInputStream, gameSettings);
+
+            switch (gameSettings.getGameType()) {
+                case SINGLE -> {
+                    Game singleGameInstance = GameFactory.createGame(gameDeck, gameSettings);
+                    startSingleGameInstance(singleGameInstance, true);
+                }
+                case MULTI -> startMultiGameInstance(gameDeck);
+            }
+
             gameRunning = InputReader.readExitGameChoice(keyboardInput);
         }
     }
 
-    private void startGameInstance() {
+    private boolean startSingleGameInstance(Game gameInstance, boolean verbose) {
         FoundationPile[] foundationPiles = gameInstance.getFoundationPiles();
         ManoeuvrePile[] manoeuvrePiles = gameInstance.getManoeuvrePiles();
         TalonPile talonPile = gameInstance.getTalonPile();
@@ -50,11 +60,14 @@ public class GameManager {
         boolean isWin = false;
 
         while (instanceRunning) {
-            ConsolePrinter.printDeckState(gameInstance);
+            if (verbose) {
+                ConsolePrinter.printDeckState(gameInstance);
+            }
 
-            moveManoeuvre(manoeuvrePiles);
-            moveFoundation(manoeuvrePiles, foundationPiles);
-            moveTalon(talonPile, manoeuvrePiles, foundationPiles);
+            do {
+                moveManoeuvre(manoeuvrePiles, verbose);
+                moveFoundation(manoeuvrePiles, foundationPiles, verbose);
+            } while (moveTalon(talonPile, manoeuvrePiles, foundationPiles, verbose));
 
             gameInstance.recordStateEntry();
 
@@ -68,10 +81,31 @@ public class GameManager {
             gameInstance.nextRound();
         }
 
-        ConsolePrinter.printGameSummary(gameInstance, isWin);
+        if (verbose) {
+            ConsolePrinter.printSingleGameSummary(gameInstance, isWin);
+        }
+
+        return isWin;
     }
 
-    private void moveManoeuvre(ManoeuvrePile[] manoeuvrePiles) {
+    private void startMultiGameInstance(Deck gameDeck) {
+        int wins = 0;
+        int losses = 0;
+        for (int gameIndex = 0; gameIndex < gameSettings.getGameCount(); gameIndex++) {
+            Game currGameInstance = GameFactory.createGame(gameDeck, gameSettings);
+            boolean currGameWin = startSingleGameInstance(currGameInstance, false);
+            if (currGameWin) {
+                wins++;
+            } else {
+                losses++;
+            }
+            gameDeck.shuffle();
+        }
+        double winRate = (double) wins / losses;
+        ConsolePrinter.printMultiGameSummary(gameSettings.getGameCount(), wins, losses, winRate);
+    }
+
+    private void moveManoeuvre(ManoeuvrePile[] manoeuvrePiles, boolean verbose) {
         Set<String> moves = new HashSet<>();
 
         for (int currManPileIndex = 0; currManPileIndex < manoeuvrePiles.length; currManPileIndex++) {
@@ -88,7 +122,7 @@ public class GameManager {
                     continue;
                 }
 
-                boolean moveMade = MoveUtil.moveManoeuvreToManoeuvre(currManPile, targetManPile);
+                boolean moveMade = MoveUtil.moveManoeuvreToManoeuvre(currManPile, targetManPile, verbose);
                 if (moveMade) {
                     moves.add(moveEntry);
                 }
@@ -96,16 +130,17 @@ public class GameManager {
         }
     }
 
-    private void moveFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles) {
+    private void moveFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         for (ManoeuvrePile currManPile : manoeuvrePiles) {
             for (FoundationPile targetPile : foundationPiles) {
-                MoveUtil.moveManoeuvreToFoundation(currManPile, targetPile);
+                MoveUtil.moveManoeuvreToFoundation(currManPile, targetPile, verbose);
             }
         }
     }
 
-    private void moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles) {
+    private boolean moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         boolean hasDrawnCards = false;
+        boolean moveMade = false;
         if (talonPile.isStockEmpty()) {
             talonPile.resetPile();
         }
@@ -115,31 +150,41 @@ public class GameManager {
             hasDrawnCards = true;
         }
 
-        for (ManoeuvrePile targetPile : manoeuvrePiles) {
-            MoveUtil.moveTalonToManoeuvre(talonPile, targetPile);
-        }
-
-        for (FoundationPile targetPile : foundationPiles) {
-            MoveUtil.moveTalonToFoundation(talonPile, targetPile);
-        }
-
         if (!hasDrawnCards) {
             talonPile.drawCards();
         }
+
+        for (ManoeuvrePile targetPile : manoeuvrePiles) {
+            moveMade = MoveUtil.moveTalonToManoeuvre(talonPile, targetPile, verbose);
+        }
+
+        for (FoundationPile targetPile : foundationPiles) {
+            MoveUtil.moveTalonToFoundation(talonPile, targetPile, verbose);
+        }
+
+        return moveMade;
     }
 
     private void initGameSettings() {
         int drawCount = InputReader.readDrawCount(keyboardInput);
         Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);
+        GameType gameType = GameType.SINGLE;
         CardVisibility cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
-        gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting);
+
+        if (shuffleType == Shuffle.RANDOM) {
+            gameType = InputReader.readGameType(keyboardInput);
+        }
+
+        switch (gameType) {
+            case SINGLE -> {
+                gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType);
+            }
+            case MULTI -> {
+                int gameCount = InputReader.readGameCount(keyboardInput);
+                gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType, gameCount);
+            }
+        }
 
         ConsolePrinter.printGameSettings(gameSettings);
-    }
-
-    private void initGameInstance() {
-        InputStream inputStream = ArgsUtil.createInputStream(gameArgs);
-        Deck gameDeck = DeckFactory.createDeck(inputStream, gameSettings);
-        gameInstance = GameFactory.createGame(gameDeck, gameSettings);
     }
 }

@@ -1,5 +1,6 @@
 package com.svi.solitaire.io;
 
+import com.svi.solitaire.enums.GameType;
 import com.svi.solitaire.enums.Shuffle;
 import com.svi.solitaire.exceptions.InvalidInputException;
 
@@ -29,6 +30,46 @@ public class InputReader {
             }
         }
         return choice;
+    }
+
+    public static GameType readGameType(Scanner keyboardInput) {
+        GameType choice = null;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println("""
+                    -----------------------------------------
+                    ENTER GAME TYPE
+                    1. Single Game
+                    2. Multi Game""");
+            try {
+                int numInput = readIntInput(keyboardInput);
+                choice = switch (numInput) {
+                    case 1 -> GameType.SINGLE;
+                    case 2 -> GameType.MULTI;
+                    default -> throw new InvalidInputException();
+                };
+                validInput = true;
+            } catch (InvalidInputException iie) {
+                System.out.println("Please enter a value from the given options.");
+            }
+        }
+        return choice;
+    }
+
+    public static int readGameCount(Scanner keyboardInput) {
+        int games = 0;
+        System.out.println("""
+                -----------------------------------------
+                ENTER AMOUNT OF GAMES""");
+        try {
+            games = readIntInput(keyboardInput);
+            if (games < 1) {
+                throw new InvalidInputException();
+            }
+        } catch (InvalidInputException iie) {
+            System.out.println("Please enter a number greater than 0.");
+        }
+        return games;
     }
 
     public static Shuffle readShuffleType(Scanner keyboardInput) {

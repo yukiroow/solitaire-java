@@ -28,13 +28,15 @@ public class ManoeuvrePile implements CardPile {
         return visibleCards.isEmpty();
     }
 
-    public void revealCard() {
+    public void revealCard(boolean verbose) {
         if (hiddenCards.isEmpty()) {
             return;
         }
         Card newCard = hiddenCards.pollLast();
         visibleCards.add(newCard);
-        System.out.println("PILE " + getPileId() + " CARD REVEALED");
+        if (verbose) {
+            System.out.println("PILE " + getPileId() + " CARD REVEALED");
+        }
     }
 
     public Iterator<Card> getVisibleCardsIterator() {
