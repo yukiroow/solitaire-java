@@ -14,9 +14,7 @@ import com.svi.solitaire.utils.ArgsUtil;
 import com.svi.solitaire.utils.MoveUtil;
 
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class GameManager {
     private final Scanner keyboardInput;
@@ -32,6 +30,8 @@ public class GameManager {
     }
 
     public void run() {
+        ConsolePrinter.printGameIntroduction();
+
         while (gameRunning) {
             initGameSettings();
             initGameInstance();
@@ -44,13 +44,11 @@ public class GameManager {
         FoundationPile[] foundationPiles = gameInstance.getFoundationPiles();
         ManoeuvrePile[] manoeuvrePiles = gameInstance.getManoeuvrePiles();
         TalonPile talonPile = gameInstance.getTalonPile();
+        Map<String, Integer> gameStateFrequencies = new HashMap<>();
         boolean instanceRunning = true;
+
         while (instanceRunning) {
             ConsolePrinter.printDeckState(gameInstance);
-
-            System.out.println("""
-                    -----------------------------------------
-                    MOVES""");
             moveManoeuvre(manoeuvrePiles);
             moveFoundation(manoeuvrePiles, foundationPiles);
             moveTalon(talonPile, manoeuvrePiles, foundationPiles);
@@ -60,6 +58,7 @@ public class GameManager {
             }
             gameInstance.nextRound();
         }
+
         ConsolePrinter.printGameSummary(gameInstance);
     }
 
@@ -68,19 +67,19 @@ public class GameManager {
 
         for (int currManPileIndex = 0; currManPileIndex < manoeuvrePiles.length; currManPileIndex++) {
             ManoeuvrePile currManPile = manoeuvrePiles[currManPileIndex];
+
             for (int targetManPileIndex = 0; targetManPileIndex < manoeuvrePiles.length; targetManPileIndex++) {
+                ManoeuvrePile targetManPile = manoeuvrePiles[targetManPileIndex];
+                String moveEntry = Math.min(currManPileIndex, targetManPileIndex) + "->" + Math.max(currManPileIndex, targetManPileIndex);
+
                 if (currManPileIndex == targetManPileIndex) {
                     continue;
                 }
-                ManoeuvrePile targetManPile = manoeuvrePiles[targetManPileIndex];
-
-                String moveEntry = Math.min(currManPileIndex, targetManPileIndex) + "->" + Math.max(currManPileIndex, targetManPileIndex);
                 if (moves.contains(moveEntry)) {
                     continue;
                 }
 
                 boolean moveMade = MoveUtil.moveManoeuvreToManoeuvre(currManPile, targetManPile);
-
                 if (moveMade) {
                     moves.add(moveEntry);
                 }
@@ -90,8 +89,8 @@ public class GameManager {
 
     private void moveFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles) {
         for (ManoeuvrePile currManPile : manoeuvrePiles) {
-            for (FoundationPile targetFounPile : foundationPiles) {
-                MoveUtil.moveManoeuvreToFoundation(currManPile, targetFounPile);
+            for (FoundationPile targetPile : foundationPiles) {
+                MoveUtil.moveManoeuvreToFoundation(currManPile, targetPile);
             }
         }
     }
@@ -107,12 +106,12 @@ public class GameManager {
             hasDrawnCards = true;
         }
 
-        for (ManoeuvrePile targetManPile : manoeuvrePiles) {
-            MoveUtil.moveTalonToManoeuvre(talonPile, targetManPile);
+        for (ManoeuvrePile targetPile : manoeuvrePiles) {
+            MoveUtil.moveTalonToManoeuvre(talonPile, targetPile);
         }
 
-        for (FoundationPile targetFounPile : foundationPiles) {
-            MoveUtil.moveTalonToFoundation(talonPile, targetFounPile);
+        for (FoundationPile targetPile : foundationPiles) {
+            MoveUtil.moveTalonToFoundation(talonPile, targetPile);
         }
 
         if (!hasDrawnCards) {
@@ -125,6 +124,7 @@ public class GameManager {
         Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);
         CardVisibility cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
         gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting);
+
         ConsolePrinter.printGameSettings(gameSettings);
     }
 

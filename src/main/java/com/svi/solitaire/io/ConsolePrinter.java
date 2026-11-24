@@ -26,6 +26,8 @@ public class ConsolePrinter {
             System.out.print("[" + (manoeuvrePile.getPileId()) + "] : ");
             System.out.println(manoeuvrePile);
         }
+        System.out.println("-----------------------------------------");
+        System.out.println("MOVES");
     }
 
     public static void printGameSettings(GameSettings gameSettings) {
@@ -46,5 +48,18 @@ public class ConsolePrinter {
             System.out.printf("%-7s", foundationPile);
         }
         System.out.println();
+    }
+
+    public static void printGameIntroduction() {
+        System.out.println("""
+                -----------------------------------------
+                WELCOME TO KLONDIKE SOLITAIRE
+                
+                Glossary:
+                    (M-M) Manoeuvre to Manoeuvre move
+                    (M-F) Manoeuvre to Foundation move
+                    (T-M) Talon Waste to Manoeuvre move
+                    (T-F) Talon Waste to Foundation move
+                """);
     }
 }

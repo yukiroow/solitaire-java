@@ -8,7 +8,7 @@ import java.util.Deque;
 import java.util.Iterator;
 
 public class ManoeuvrePile implements CardPile {
-    private int pileId;
+    private final int pileId;
     private Deque<Card> hiddenCards;
     private Deque<Card> visibleCards;
     private CardVisibility cardVisibilitySetting;
