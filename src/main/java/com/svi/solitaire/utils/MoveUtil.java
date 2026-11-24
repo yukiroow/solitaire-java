@@ -38,11 +38,12 @@ public class MoveUtil {
         sourceVisibleCardIterator = updateIteratorToBestMoveCard(sourcePile, sourceVisibleCardIterator, targetCard);
         if (sourceVisibleCardIterator == null) return false;
 
+        boolean prevHasHidden = sourcePile.getHiddenCardsSize() > 0;
         boolean moveMade = false;
         Card prevCard = null;
         while (sourceVisibleCardIterator.hasNext()) {
             Card currCard = sourceVisibleCardIterator.next();
-            if (isSkippable(prevCard, targetCard)) {
+            if (isSkippable(prevCard, targetCard, prevHasHidden)) {
                 continue;
             }
             if (targetPile.appendCard(currCard)) {
@@ -226,12 +227,25 @@ public class MoveUtil {
     /**
      * This determines if the current Card can be skipped given the previous card and the target card.
      *
+     * <p>
+     * Special Conditions:
+     * </p>
+     * <ul>
+     *     <li>Don't Skip if the previous Card is King, the target Card is blank, and the current pile has Hidden Cards</li>
+     *     <li>Skip if the rank of the previous and target Cards are the same</li>
+     * </ul>
+     *
      * @param prevCard   the previous card
      * @param targetCard the target card
      * @return {@code true} if the current Card is skippable, {@code false} if otherwise
      */
-    private static boolean isSkippable(Card prevCard, Card targetCard) {
-        if (prevCard == null && targetCard == null) return true;
-        return (prevCard != null && targetCard != null) && prevCard.rank() == targetCard.rank();
+    private static boolean isSkippable(Card prevCard, Card targetCard, boolean prevHasHidden) {
+        boolean prevIsKing = prevCard == null;
+        boolean targetIsBlank = targetCard == null;
+        boolean prevAndTargetIsSameRank = (!prevIsKing && !targetIsBlank) && prevCard.rank() == targetCard.rank();
+
+        if (prevIsKing && targetIsBlank && prevHasHidden) return false;
+
+        return prevAndTargetIsSameRank;
     }
 }

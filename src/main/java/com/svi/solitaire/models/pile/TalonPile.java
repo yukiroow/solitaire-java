@@ -110,13 +110,22 @@ public class TalonPile implements CardPile {
     /**
      * Draw Cards from the top of the Stock Cards to the Waste Cards
      */
-    public void drawCards() {
+    public void drawCards(boolean verbose) {
+        int actualDrawCount = 0;
+        if (stockPile.isEmpty()) {
+            return;
+        }
         for (int count = 0; count < drawCount; count++) {
             Card currCard = stockPile.poll();
 
             if (currCard != null) {
+                actualDrawCount++;
                 wastePile.push(currCard);
             }
+        }
+
+        if (verbose && actualDrawCount > 0) {
+            System.out.println(actualDrawCount + " CARD/s DRAWN FROM STOCK");
         }
     }
 

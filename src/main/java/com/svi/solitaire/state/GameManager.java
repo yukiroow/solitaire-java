@@ -30,7 +30,6 @@ public class GameManager {
     private boolean gameRunning;
     private GameSettings gameSettings;
     private String[] gameArgs;
-    private InputStream deckInputStream;
     private CardVisibility cardVisibilitySetting;
 
     /**
@@ -54,7 +53,7 @@ public class GameManager {
     public void run() {
         while (gameRunning) {
             cardVisibilitySetting = ArgsUtil.parseCardVisibility(gameArgs);
-            deckInputStream = ArgsUtil.createInputStream(gameArgs);
+            InputStream deckInputStream = ArgsUtil.createInputStream(gameArgs);
             ConsolePrinter.printGameIntroduction();
             initGameSettings();
             Deck gameDeck = DeckFactory.createDeck(deckInputStream, gameSettings);
@@ -203,11 +202,11 @@ public class GameManager {
      * The {@code verbose} flag determines whether the method will print operations to the console.
      * </p>
      *
-     * @param talonPile
-     * @param manoeuvrePiles
-     * @param foundationPiles
-     * @param verbose
-     * @return
+     * @param talonPile       the given Talon Pile
+     * @param manoeuvrePiles  the given Manoeuvre Pile
+     * @param foundationPiles the given Foundation Pile
+     * @param verbose         the print flag
+     * @return {@code true} if a move was made, {@code false} otherwise
      */
     private boolean moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         boolean hasDrawnCards = false;
@@ -218,12 +217,12 @@ public class GameManager {
         }
 
         if (talonPile.isWasteEmpty()) {
-            talonPile.drawCards();
+            talonPile.drawCards(verbose);
             hasDrawnCards = true;
         }
 
         if (!hasDrawnCards) {
-            talonPile.drawCards();
+            talonPile.drawCards(verbose);
         }
 
         for (ManoeuvrePile targetPile : manoeuvrePiles) {
@@ -250,9 +249,7 @@ public class GameManager {
         }
 
         switch (gameType) {
-            case SINGLE -> {
-                gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType);
-            }
+            case SINGLE -> gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType);
             case MULTI -> {
                 int gameCount = InputReader.readGameCount(keyboardInput);
                 gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType, gameCount);

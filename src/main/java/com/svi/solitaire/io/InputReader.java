@@ -37,7 +37,7 @@ public class InputReader {
                 int numInput = readIntInput(keyboardInput);
                 choice = switch (numInput) {
                     case 1 -> 1;
-                    case 2 -> 2;
+                    case 2 -> 3;
                     default -> throw new InvalidInputException();
                 };
                 validInput = true;
