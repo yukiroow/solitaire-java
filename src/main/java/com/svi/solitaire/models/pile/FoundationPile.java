@@ -58,6 +58,7 @@ public class FoundationPile implements CardPile {
             }
             return false;
         }
+
         if (card.suit() != pileSuit) {
             return false;
         }
@@ -67,6 +68,7 @@ public class FoundationPile implements CardPile {
             cards.add(card);
             return true;
         }
+
         return false;
     }
 

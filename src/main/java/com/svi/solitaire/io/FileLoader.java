@@ -25,6 +25,7 @@ public class FileLoader {
     public static Deck loadDeckFromFile(InputStream deckInputStream) {
         Scanner fileScanner;
         String rawFile = "";
+
         try {
             fileScanner = new Scanner(Objects.requireNonNull(deckInputStream));
             while (fileScanner.hasNextLine()) {
@@ -52,6 +53,7 @@ public class FileLoader {
     private static Deck parseToDeck(String rawFile) {
         ArrayList<Card> parsedCards = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
+
         while (tokenizer.hasMoreTokens()) {
             StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
             String suitVal = innerTokenizer.nextToken().trim();
@@ -79,6 +81,7 @@ public class FileLoader {
         Card tempCard = null;
         Suit suitVal;
         Rank rankVal;
+
         try {
             suitVal = Suit.valueOf(rawSuit);
             try {
@@ -91,6 +94,7 @@ public class FileLoader {
             System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
             System.exit(0);
         }
+
         return tempCard;
     }
 

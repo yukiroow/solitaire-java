@@ -25,6 +25,7 @@ public class GameFactory {
     public static Game createGame(Deck shuffledDeck, GameSettings gameSettings) {
         FoundationPile[] foundationPiles = new FoundationPile[4];
         ManoeuvrePile[] manoeuvrePiles = new ManoeuvrePile[7];
+
         for (int i = 1; i <= manoeuvrePiles.length; i++) {
             if (i < 5) {
                 foundationPiles[i - 1] = new FoundationPile();

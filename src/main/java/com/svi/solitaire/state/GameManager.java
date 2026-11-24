@@ -125,6 +125,7 @@ public class GameManager {
     private void startMultiGameInstance(Deck gameDeck) {
         int wins = 0;
         int losses = 0;
+
         for (int gameIndex = 0; gameIndex < gameSettings.getGameCount(); gameIndex++) {
             Game currGameInstance = GameFactory.createGame(gameDeck, gameSettings);
             boolean currGameWin = startSingleGameInstance(currGameInstance, false);
@@ -135,6 +136,7 @@ public class GameManager {
             }
             gameDeck.shuffle();
         }
+
         double winRate = ((double) wins / losses) * 100;
         ConsolePrinter.printMultiGameSummary(gameSettings.getGameCount(), wins, losses, winRate);
     }
@@ -209,6 +211,7 @@ public class GameManager {
     private boolean moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         boolean hasDrawnCards = false;
         boolean moveMade = false;
+
         if (talonPile.isStockEmpty()) {
             talonPile.resetPile();
         }

@@ -25,6 +25,7 @@ public class CardUtil {
     public static Deck doRandomShuffle(Deck deck) {
         Deck shuffledDeck = new Deck(deck);
         Collections.shuffle(shuffledDeck.getCards());
+
         return shuffledDeck;
     }
 
@@ -44,6 +45,7 @@ public class CardUtil {
         ArrayList<Card> newDeck = new ArrayList<>();
         ArrayList<Card> firstHalf = new ArrayList<>(deck.getCards().subList(0, mid));
         ArrayList<Card> secondHalf = new ArrayList<>(deck.getCards().subList(mid, deck.getCards().size()));
+
         for (int i = 0; i < mid; i++) {
             if (shuffleType == Shuffle.OUT_FARO) {
                 newDeck.add(firstHalf.get(i));
@@ -53,6 +55,7 @@ public class CardUtil {
                 newDeck.add(firstHalf.get(i));
             }
         }
+
         return new Deck(newDeck);
     }
 
@@ -75,6 +78,7 @@ public class CardUtil {
 
         for (int i = 0; i < deck.getCards().size(); i++) {
             ManoeuvrePile currPile = manoeuvreStacks[stackIndex];
+
             if (currPile.isSetupComplete()) {
                 fullStacks++;
                 if (fullStacks == manoeuvreStacks.length) {
@@ -88,11 +92,11 @@ public class CardUtil {
                 currPile.appendCard(card, visible);
                 fullStacks = 0;
             }
+
             stackIndex = (stackIndex + 1) % manoeuvreStacks.length;
         }
 
         remainingCards = deck.getCards().subList(cutoffIndex, deck.getCards().size());
-
         return new Deck(remainingCards);
     }
 }

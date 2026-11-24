@@ -103,6 +103,7 @@ public class TalonPile implements CardPile {
         for (Card card : wastePile) {
             appendCard(card);
         }
+
         wastePile.clear();
     }
 
@@ -112,6 +113,7 @@ public class TalonPile implements CardPile {
     public void drawCards() {
         for (int count = 0; count < drawCount; count++) {
             Card currCard = stockPile.poll();
+
             if (currCard != null) {
                 wastePile.push(currCard);
             }
@@ -127,6 +129,7 @@ public class TalonPile implements CardPile {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         Iterator<Card> wastePileIterator = wastePile.descendingIterator();
+
         if (!wastePileIterator.hasNext()) {
             sb.append("[ - ]");
         } else {
@@ -135,6 +138,7 @@ public class TalonPile implements CardPile {
                 sb.append("[").append(currCard).append("] ");
             }
         }
+
         return sb.toString();
     }
 }

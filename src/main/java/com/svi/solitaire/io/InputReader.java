@@ -159,6 +159,7 @@ public class InputReader {
     public static boolean readExitGameChoice(Scanner keyboardInput) {
         boolean choice = false;
         boolean validInput = false;
+
         while (!validInput) {
             System.out.println("""
                     -----------------------------------------
@@ -176,6 +177,7 @@ public class InputReader {
                 System.out.println("Please select a valid option.");
             }
         }
+
         return choice;
     }
 

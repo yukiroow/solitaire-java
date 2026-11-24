@@ -91,6 +91,7 @@ public class Game {
      */
     public boolean isGameWon() {
         int score = 0;
+
         for (FoundationPile foundationPile : this.foundationPiles) {
             Card topCard = foundationPile.peek();
             if (topCard == null) {
@@ -100,6 +101,7 @@ public class Game {
                 score++;
             }
         }
+
         return score == 4;
     }
 
@@ -115,12 +117,14 @@ public class Game {
     public boolean isGameOver() {
         boolean hasPingPong = false;
         List<Integer> frequencies = gameStateFrequencies.values().stream().toList();
+
         for (int frequency : frequencies) {
             if (frequency > 2) {
                 hasPingPong = true;
                 break;
             }
         }
+
         return hasPingPong;
     }
 

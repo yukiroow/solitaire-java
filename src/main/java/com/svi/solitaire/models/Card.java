@@ -27,6 +27,24 @@ public class Card implements Comparable<Card> {
     }
 
     /**
+     * This returns the Rank of this Card
+     *
+     * @return the Rank
+     */
+    public Rank rank() {
+        return rank;
+    }
+
+    /**
+     * This returns the Suit of this Card
+     *
+     * @return the Suit
+     */
+    public Suit suit() {
+        return suit;
+    }
+
+    /**
      * Compares this Card and a given card for order based on their rank and suit.
      *
      * <p>
@@ -56,17 +74,9 @@ public class Card implements Comparable<Card> {
     }
 
     /**
-     * Returns a colored and symboled string representation of this Card.
+     * Returns a formatted String representation of this Card.
      *
-     * <p>
-     * The output includes terminal ANSI escape codes to dynamically style the card's
-     * appearance based on its suit:
-     * <ul>
-     *   <li>Red suits are rendered with a crimson background and black text.</li>
-     *   <li>Black suits are rendered with a dark background and white text.</li>
-     * </ul>
-     *
-     * @return a rich-text ANSI string representing the card's suit symbol, name, and rank
+     * @return the formatted String
      */
     @Override
     public String toString() {
@@ -74,6 +84,7 @@ public class Card implements Comparable<Card> {
             case 1, 11, 12, 13 -> rank.toString();
             default -> String.valueOf(rank.getValue());
         };
+
         return suit + "-" + rankDisplay;
     }
 
@@ -89,6 +100,7 @@ public class Card implements Comparable<Card> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
+
         return rank == card.rank && suit == card.suit;
     }
 
@@ -119,6 +131,7 @@ public class Card implements Comparable<Card> {
         if (otherCard == null) {
             return this.rank() == Rank.K;
         }
+
         String cardColor = this.suit().getColor();
         String otherCardColor = otherCard.suit().getColor();
         if (cardColor.compareTo(otherCardColor) == 0) {
@@ -128,23 +141,5 @@ public class Card implements Comparable<Card> {
         int otherCardRank = otherCard.rank().getValue();
 
         return otherCardRank - cardRank == 1;
-    }
-
-    /**
-     * This returns the Rank of this Card
-     *
-     * @return the Rank
-     */
-    public Rank rank() {
-        return rank;
-    }
-
-    /**
-     * This returns the Suit of this Card
-     *
-     * @return the Suit
-     */
-    public Suit suit() {
-        return suit;
     }
 }

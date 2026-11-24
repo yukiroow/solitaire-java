@@ -35,16 +35,8 @@ public class MoveUtil {
         String move = "";
         Iterator<Card> sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
         Card targetCard = targetPile.peek();
-        int bestCardIndex = getBestMoveCardIndex(sourceVisibleCardIterator, targetCard);
-
-        if (bestCardIndex == -1) {
-            return false;
-        }
-
-        sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
-        for (int currCardIndex = 0; currCardIndex < bestCardIndex; currCardIndex++) {
-            sourceVisibleCardIterator.next();
-        }
+        sourceVisibleCardIterator = updateIteratorToBestMoveCard(sourcePile, sourceVisibleCardIterator, targetCard);
+        if (sourceVisibleCardIterator == null) return false;
 
         boolean moveMade = false;
         Card prevCard = null;
@@ -73,6 +65,28 @@ public class MoveUtil {
     }
 
     /**
+     * This progresses the given Visible Cards Iterator to the position of the Best Card
+     *
+     * @param sourcePile                the source Manoeuvre Pile
+     * @param sourceVisibleCardIterator the given Visible Cards Iterator
+     * @param targetCard                the target Card
+     * @return the progressed Iterator
+     */
+    private static Iterator<Card> updateIteratorToBestMoveCard(ManoeuvrePile sourcePile, Iterator<Card> sourceVisibleCardIterator, Card targetCard) {
+        int bestCardIndex = getBestMoveCardIndex(sourceVisibleCardIterator, targetCard);
+
+        if (bestCardIndex == -1) {
+            return null;
+        }
+
+        sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
+        for (int currCardIndex = 0; currCardIndex < bestCardIndex; currCardIndex++) {
+            sourceVisibleCardIterator.next();
+        }
+        return sourceVisibleCardIterator;
+    }
+
+    /**
      * Performs possible moves from a source {@code ManoeuvrePile} to a target {@code FoundationPile}.
      *
      * <p>
@@ -89,6 +103,7 @@ public class MoveUtil {
         if (!sourceIterator.hasNext()) {
             return;
         }
+
         Card currCard = null;
         while (sourceIterator.hasNext()) currCard = sourceIterator.next();
         Card prevFoundationCard = targetPile.peek();
@@ -96,6 +111,7 @@ public class MoveUtil {
             move = "(M-F) MOVED: " + currCard + " -> " + prevFoundationCard;
             sourceIterator.remove();
         }
+
         if (sourcePile.isVisibleCardsEmpty()) {
             sourcePile.revealCard(verbose);
         }
@@ -127,6 +143,7 @@ public class MoveUtil {
         if (!sourceCard.isAppendableTo(targetCard)) {
             return false;
         }
+
         sourceCard = sourcePile.playTopWaste();
         if (targetPile.appendCard(sourceCard)) {
             move = "(T-M) MOVED: " + sourceCard + " -> " + targetCard;
@@ -157,6 +174,7 @@ public class MoveUtil {
         if (!sourceIterator.hasNext()) {
             return;
         }
+
         Card currCard = sourceIterator.next();
         Card prevFoundationCard = targetPile.peek();
         if (targetPile.appendCard(currCard)) {

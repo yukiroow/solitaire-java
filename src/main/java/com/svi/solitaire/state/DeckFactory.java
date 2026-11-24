@@ -28,6 +28,7 @@ public class DeckFactory {
      */
     public static Deck createDeck(InputStream deckFile, GameSettings gameSettings) {
         Deck deck = FileLoader.loadDeckFromFile(deckFile);
+
         return switch (gameSettings.getShuffleType()) {
             case Shuffle.OUT_FARO -> CardUtil.doFaroShuffle(deck, Shuffle.OUT_FARO);
             case Shuffle.IN_FARO -> CardUtil.doFaroShuffle(deck, Shuffle.IN_FARO);

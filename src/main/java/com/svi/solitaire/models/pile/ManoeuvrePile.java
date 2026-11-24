@@ -63,8 +63,10 @@ public class ManoeuvrePile implements CardPile {
         if (hiddenCards.isEmpty()) {
             return;
         }
+
         Card newCard = hiddenCards.pollLast();
         visibleCards.add(newCard);
+
         if (verbose) {
             System.out.println("PILE " + getPileId() + " CARD REVEALED");
         }
@@ -138,6 +140,7 @@ public class ManoeuvrePile implements CardPile {
             visibleCards.add(card);
             return;
         }
+
         hiddenCards.add(card);
     }
 

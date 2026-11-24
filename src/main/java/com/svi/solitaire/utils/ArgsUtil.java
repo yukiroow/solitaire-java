@@ -28,6 +28,7 @@ public class ArgsUtil {
             ConsolePrinter.printUsageGuide();
             throw new InvalidDeckFileException("Wrong number of arguments");
         }
+
         InputStream deckInputStream;
         try {
             String inputFileName = args[0];
@@ -36,6 +37,7 @@ public class ArgsUtil {
         } catch (FileNotFoundException fnfe) {
             throw new InvalidDeckFileException("Specified Deck File not found");
         }
+
         return deckInputStream;
     }
 
@@ -56,6 +58,7 @@ public class ArgsUtil {
             ConsolePrinter.printUsageGuide();
             throw new InvalidVisibilityArgumentException("Invalid Deck visibility argument provided.");
         }
+
         return setting;
     }
 }
