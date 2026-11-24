@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Utility class for Pile operations.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class MoveUtil {
     private static final int PRIORITY_MOVE = 2;
     private static final int NORMAL_MOVE = 1;

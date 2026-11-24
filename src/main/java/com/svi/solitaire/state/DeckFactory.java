@@ -8,6 +8,12 @@ import com.svi.solitaire.io.FileLoader;
 
 import java.io.InputStream;
 
+/**
+ * Factory that constructs a Deck object.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class DeckFactory {
     public static Deck createDeck(InputStream deckFile, GameSettings gameSettings) {
         Deck deck = FileLoader.loadDeckFromFile(deckFile);

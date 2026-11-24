@@ -9,6 +9,12 @@ import com.svi.solitaire.models.Deck;
 import java.io.InputStream;
 import java.util.*;
 
+/**
+ * Utility class for loading the Game Deck.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class FileLoader {
     /**
      * This returns a Deck object parsed from given InputStream

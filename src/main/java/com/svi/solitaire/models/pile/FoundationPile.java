@@ -7,6 +7,12 @@ import com.svi.solitaire.models.Card;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+/**
+ * Represents the Foundation Pile in the Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class FoundationPile implements CardPile {
     private Deque<Card> cards;
     private Suit pileSuit;

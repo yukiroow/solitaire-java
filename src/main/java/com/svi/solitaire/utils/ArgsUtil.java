@@ -10,6 +10,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * Utility class for parsing program arguments.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class ArgsUtil {
     public static InputStream createInputStream(String[] args) {
         if (args.length < 1) {

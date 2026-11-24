@@ -7,6 +7,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
 
+/**
+ * Represents the Talon Pile, containing the Stock and Waste Piles, in the Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class TalonPile implements CardPile {
     private final int drawSetting;
     private Deque<Card> stockPile;

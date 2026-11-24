@@ -8,6 +8,12 @@ import com.svi.solitaire.models.pile.ManoeuvrePile;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Utility class for Card Operations.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class CardUtil {
     public static Deck doRandomShuffle(Deck deck) {
         Deck shuffledDeck = new Deck(deck);

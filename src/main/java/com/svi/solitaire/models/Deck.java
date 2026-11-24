@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Represents a Card Deck in the Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class Deck {
     private final List<Card> cards;
 

@@ -6,6 +6,12 @@ import com.svi.solitaire.models.pile.FoundationPile;
 import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
 
+/**
+ * Utility class for displaying Game messages to the console.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class ConsolePrinter {
     public static void printDeckState(Game gameInstance) {
         int round = gameInstance.getRounds();

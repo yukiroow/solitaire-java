@@ -9,6 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents an instance of a Solitaire Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class Game {
     private Map<String, Integer> gameStateFrequencies;
     private FoundationPile[] foundationPiles;

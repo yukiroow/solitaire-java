@@ -19,6 +19,12 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * Represents the State Manager for the Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class GameManager {
     private Scanner keyboardInput;
     private boolean gameRunning;

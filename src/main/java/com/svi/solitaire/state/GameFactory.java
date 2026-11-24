@@ -8,6 +8,12 @@ import com.svi.solitaire.models.pile.ManoeuvrePile;
 import com.svi.solitaire.models.pile.TalonPile;
 import com.svi.solitaire.utils.CardUtil;
 
+/**
+ * Factory that constructs an instance of a Solitaire Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class GameFactory {
     public static Game createGame(Deck shuffledDeck, GameSettings gameSettings) {
         FoundationPile[] foundationPiles = new FoundationPile[4];

@@ -7,6 +7,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Iterator;
 
+/**
+ * Represents the Manoeuvre Pile in the Game.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class ManoeuvrePile implements CardPile {
     private final int pileId;
     private Deque<Card> hiddenCards;

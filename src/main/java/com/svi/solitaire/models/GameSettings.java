@@ -4,6 +4,12 @@ import com.svi.solitaire.enums.CardVisibility;
 import com.svi.solitaire.enums.GameType;
 import com.svi.solitaire.enums.Shuffle;
 
+/**
+ * Represents the Game Settings inputted by the User.
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class GameSettings {
     private int drawCount;
     private Shuffle shuffleType;

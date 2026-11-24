@@ -7,7 +7,23 @@ import com.svi.solitaire.exceptions.InvalidInputException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Utility class for reading User Keyboard Input
+ *
+ * @author Harry Dominguez
+ * @since 1.0
+ */
 public class InputReader {
+    /**
+     * This reads the Draw Count setting for the Game using the given Scanner object
+     *
+     * <p>
+     * The user input must be of type {@code int} with a value of {@code 1} or {@code 2}.
+     * </p>
+     *
+     * @param keyboardInput the given Scanner object
+     * @return the int draw count setting
+     */
     public static int readDrawCount(Scanner keyboardInput) {
         int choice = 0;
         boolean validInput = false;
