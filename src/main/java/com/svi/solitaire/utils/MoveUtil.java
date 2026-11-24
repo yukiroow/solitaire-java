@@ -133,29 +133,25 @@ public class MoveUtil {
      * @param targetPile the target pile
      * @param verbose    the print flag
      */
-    public static boolean moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile, boolean verbose) {
+    public static void moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile, boolean verbose) {
         String move = "";
-        boolean moveMade = false;
         Card sourceCard = sourcePile.peek();
         Card targetCard = targetPile.peek();
         if (sourceCard == null) {
-            return false;
+            return;
         }
         if (!sourceCard.isAppendableTo(targetCard)) {
-            return false;
+            return;
         }
 
         sourceCard = sourcePile.playTopWaste();
         if (targetPile.appendCard(sourceCard)) {
             move = "(T-M) MOVED: " + sourceCard + " -> " + targetCard;
-            moveMade = true;
         }
 
         if (verbose && !move.isEmpty()) {
             System.out.println(move);
         }
-
-        return moveMade;
     }
 
     /**

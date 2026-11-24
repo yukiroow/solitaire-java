@@ -89,10 +89,9 @@ public class GameManager {
                 ConsolePrinter.printDeckState(gameInstance);
             }
 
-            do {
-                moveManoeuvre(manoeuvrePiles, verbose);
-                moveToFoundation(manoeuvrePiles, foundationPiles, verbose);
-            } while (moveTalon(talonPile, manoeuvrePiles, foundationPiles, verbose));
+            moveManoeuvre(manoeuvrePiles, verbose);
+            moveToFoundation(manoeuvrePiles, foundationPiles, verbose);
+            moveTalon(talonPile, manoeuvrePiles, foundationPiles, verbose);
 
             gameInstance.recordStateEntry();
 
@@ -206,11 +205,9 @@ public class GameManager {
      * @param manoeuvrePiles  the given Manoeuvre Pile
      * @param foundationPiles the given Foundation Pile
      * @param verbose         the print flag
-     * @return {@code true} if a move was made, {@code false} otherwise
      */
-    private boolean moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
+    private void moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         boolean hasDrawnCards = false;
-        boolean moveMade = false;
 
         if (talonPile.isStockEmpty()) {
             talonPile.resetPile();
@@ -226,14 +223,12 @@ public class GameManager {
         }
 
         for (ManoeuvrePile targetPile : manoeuvrePiles) {
-            moveMade = MoveUtil.moveTalonToManoeuvre(talonPile, targetPile, verbose);
+            MoveUtil.moveTalonToManoeuvre(talonPile, targetPile, verbose);
         }
 
         for (FoundationPile targetPile : foundationPiles) {
             MoveUtil.moveTalonToFoundation(talonPile, targetPile, verbose);
         }
-
-        return moveMade;
     }
 
     /**
