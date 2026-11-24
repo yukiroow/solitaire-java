@@ -19,6 +19,18 @@ public class MoveUtil {
     private static final int PRIORITY_MOVE = 2;
     private static final int NORMAL_MOVE = 1;
 
+    /**
+     * Performs possible moves from a source {@code ManoeuvrePile} to a target {@code ManoeuvrePile}.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param sourcePile the source pile
+     * @param targetPile the target pile
+     * @param verbose    the print flag
+     * @return {@code true} if a move was made, {@code false} otherwise.
+     */
     public static boolean moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile, boolean verbose) {
         String move = "";
         Iterator<Card> sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
@@ -60,6 +72,17 @@ public class MoveUtil {
         return moveMade;
     }
 
+    /**
+     * Performs possible moves from a source {@code ManoeuvrePile} to a target {@code FoundationPile}.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param sourcePile the source pile
+     * @param targetPile the target pile
+     * @param verbose    the print flag
+     */
     public static void moveManoeuvreToFoundation(ManoeuvrePile sourcePile, FoundationPile targetPile, boolean verbose) {
         String move = "";
         Iterator<Card> sourceIterator = sourcePile.getVisibleCardsIterator();
@@ -82,6 +105,17 @@ public class MoveUtil {
         }
     }
 
+    /**
+     * Performs possible moves from a source {@code TalonPile} to a target {@code ManoeuvrePile}.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param sourcePile the source pile
+     * @param targetPile the target pile
+     * @param verbose    the print flag
+     */
     public static boolean moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile, boolean verbose) {
         String move = "";
         boolean moveMade = false;
@@ -106,6 +140,17 @@ public class MoveUtil {
         return moveMade;
     }
 
+    /**
+     * Performs possible moves from a source {@code TalonPile} to a target {@code FoundationPile}.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param sourcePile the source pile
+     * @param targetPile the target pile
+     * @param verbose    the print flag
+     */
     public static void moveTalonToFoundation(TalonPile sourcePile, FoundationPile targetPile, boolean verbose) {
         String move = "";
         Iterator<Card> sourceIterator = sourcePile.getWastePileIterator();
@@ -124,6 +169,20 @@ public class MoveUtil {
         }
     }
 
+    /**
+     * This determines the index of the Card from the given iterator with the best possible move.
+     *
+     * <p>
+     * A Card that reveals a hidden Card is considered the best move. This Card is also the head of the given Iterator.
+     * </p>
+     * <p>
+     * This method follows a Greedy approach where all the moves of the Cards in the iterator are checked.
+     * </p>
+     *
+     * @param iterator   the given iterator
+     * @param targetCard the target Card
+     * @return the index of the Card with the best move
+     */
     private static int getBestMoveCardIndex(Iterator<Card> iterator, Card targetCard) {
         List<Card> visibleCards = new ArrayList<>();
         int highestScore = 0;
@@ -146,6 +205,13 @@ public class MoveUtil {
         return bestCardIndex;
     }
 
+    /**
+     * This determines if the current Card can be skipped given the previous card and the target card.
+     *
+     * @param prevCard   the previous card
+     * @param targetCard the target card
+     * @return {@code true} if the current Card is skippable, {@code false} if otherwise
+     */
     private static boolean isSkippable(Card prevCard, Card targetCard) {
         if (prevCard == null && targetCard == null) return true;
         return (prevCard != null && targetCard != null) && prevCard.rank() == targetCard.rank();

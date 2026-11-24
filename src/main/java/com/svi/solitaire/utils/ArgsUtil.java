@@ -17,6 +17,12 @@ import java.io.InputStream;
  * @since 1.0
  */
 public class ArgsUtil {
+    /**
+     * This constructs an {@code InputStream} from the given program arguments.
+     *
+     * @param args the given program arguments
+     * @return the constructed InputStream
+     */
     public static InputStream createInputStream(String[] args) {
         if (args.length < 1) {
             ConsolePrinter.printUsageGuide();
@@ -33,6 +39,12 @@ public class ArgsUtil {
         return deckInputStream;
     }
 
+    /**
+     * This parses a {@code CardVisibility} from the given program arguments
+     *
+     * @param args the given program arguments
+     * @return the parsed CardVisibility enum
+     */
     public static CardVisibility parseCardVisibility(String[] args) {
         CardVisibility setting;
         try {

@@ -16,7 +16,10 @@ public class Card implements Comparable<Card> {
     private Suit suit;
 
     /**
+     * Construct a Card from the given Rank and Suit
      *
+     * @param rank the given Rank
+     * @param suit the given Suit
      */
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
@@ -99,6 +102,19 @@ public class Card implements Comparable<Card> {
         return Objects.hash(rank, suit);
     }
 
+    /**
+     * This determines if this Card is Appendable to another Card in a Manoeuvre Pile.
+     *
+     * <p>
+     * A Card is appendable if the other Card has the opposite Suit Color and a higher Rank value by 1.
+     * </p>
+     * <p>
+     * If the other Card is null, indicating an empty Manoeuvre Pile, this Card is still appendable if it's Rank is King
+     * </p>
+     *
+     * @param otherCard the other Card
+     * @return {@code true} if this Card is appendable, {@code false} otherwise
+     */
     public boolean isAppendableTo(Card otherCard) {
         if (otherCard == null) {
             return this.rank() == Rank.K;
@@ -114,10 +130,20 @@ public class Card implements Comparable<Card> {
         return otherCardRank - cardRank == 1;
     }
 
+    /**
+     * This returns the Rank of this Card
+     *
+     * @return the Rank
+     */
     public Rank rank() {
         return rank;
     }
 
+    /**
+     * This returns the Suit of this Card
+     *
+     * @return the Suit
+     */
     public Suit suit() {
         return suit;
     }

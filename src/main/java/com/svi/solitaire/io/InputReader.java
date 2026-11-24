@@ -48,6 +48,16 @@ public class InputReader {
         return choice;
     }
 
+    /**
+     * This reads and parses the Game Type setting for the Game using the given Scanner object
+     *
+     * <p>
+     * The user input must be of type {@code int} with a value of {@code 1} or {@code 2}.
+     * </p>
+     *
+     * @param keyboardInput the given Scanner object
+     * @return the parsed Game Type
+     */
     public static GameType readGameType(Scanner keyboardInput) {
         GameType choice = null;
         boolean validInput = false;
@@ -72,6 +82,16 @@ public class InputReader {
         return choice;
     }
 
+    /**
+     * This reads the number of Games to be run by the program using the given Scanner object.
+     *
+     * <p>
+     * The user input must be of type {@code int} and be greater than {@code 0}
+     * </p>
+     *
+     * @param keyboardInput the given Scanner object
+     * @return the number of Games
+     */
     public static int readGameCount(Scanner keyboardInput) {
         int games = 0;
         System.out.println("""
@@ -88,6 +108,16 @@ public class InputReader {
         return games;
     }
 
+    /**
+     * This reads the Shuffle Type setting for the Game using the given Scanner object
+     *
+     * <p>
+     * The user input must be of type {@code int} with a value of {@code 1}, {@code 2}, {@code 3}, or {@code 4}.
+     * </p>
+     *
+     * @param keyboardInput the given Scanner object
+     * @return the parsed ShuffleType
+     */
     public static Shuffle readShuffleType(Scanner keyboardInput) {
         Shuffle choice = null;
         boolean validInput = false;
@@ -116,6 +146,16 @@ public class InputReader {
         return choice;
     }
 
+    /**
+     * This reads the exit Game choice for the Game using the given Scanner object
+     *
+     * <p>
+     * The user input must be of type {@code int} with a value of {@code 1} or {@code 2}.
+     * </p>
+     *
+     * @param keyboardInput the given Scanner object
+     * @return {@code true} if the input is {@code 1}, {@code false} otherwise
+     */
     public static boolean readExitGameChoice(Scanner keyboardInput) {
         boolean choice = false;
         boolean validInput = false;
@@ -139,6 +179,12 @@ public class InputReader {
         return choice;
     }
 
+    /**
+     * This reads an {@code int} input using the given Scanner object.
+     *
+     * @param keyboardInput the given Scanner object
+     * @return the {@code int} input
+     */
     private static int readIntInput(Scanner keyboardInput) {
         try {
             System.out.print("> ");

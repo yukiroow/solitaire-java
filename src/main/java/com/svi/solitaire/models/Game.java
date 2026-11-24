@@ -22,34 +22,73 @@ public class Game {
     private TalonPile talonPile;
     private int rounds;
 
-    public Game(FoundationPile[] foundationStacks, ManoeuvrePile[] manoeuvreStacks, TalonPile talonStack) {
+    /**
+     * Construct a Game Instance from the given Foundation Piles, Manoeuvre Piles, and Talon Pile.
+     *
+     * @param foundationPiles the given Foundation Piles
+     * @param manoeuvrePiles  the given Manoeuvre Piles
+     * @param talonPile       the Talon Pile
+     */
+    public Game(FoundationPile[] foundationPiles, ManoeuvrePile[] manoeuvrePiles, TalonPile talonPile) {
         gameStateFrequencies = new HashMap<>();
-        this.foundationPiles = foundationStacks;
-        this.manoeuvrePiles = manoeuvreStacks;
-        this.talonPile = talonStack;
+        this.foundationPiles = foundationPiles;
+        this.manoeuvrePiles = manoeuvrePiles;
+        this.talonPile = talonPile;
         this.rounds = 1;
     }
 
+    /**
+     * This returns this Game's Manoeuvre Piles
+     *
+     * @return the Manoeuvre Piles
+     */
     public ManoeuvrePile[] getManoeuvrePiles() {
         return manoeuvrePiles;
     }
 
+    /**
+     * This returns this Game's Foundation Piles
+     *
+     * @return the Foundation Piles
+     */
     public FoundationPile[] getFoundationPiles() {
         return foundationPiles;
     }
 
+    /**
+     * This returns this Game's Talon Pile
+     *
+     * @return the Talon Pile
+     */
     public TalonPile getTalonPile() {
         return talonPile;
     }
 
+    /**
+     * This returns this Game's number of rounds
+     *
+     * @return the number of rounds
+     */
     public int getRounds() {
         return rounds;
     }
 
+    /**
+     * This increments the round counter
+     */
     public void nextRound() {
         rounds++;
     }
 
+    /**
+     * This determines if the Game is already won.
+     *
+     * <p>
+     * A game is won if the top Card of every Foundation Pile is a {@code KING}
+     * </p>
+     *
+     * @return {@code true} if the Game is won, {@code false} otherwise
+     */
     public boolean isGameWon() {
         int score = 0;
         for (FoundationPile foundationPile : this.foundationPiles) {
@@ -64,6 +103,15 @@ public class Game {
         return score == 4;
     }
 
+    /**
+     * This determines if the Game is already lost.
+     *
+     * <p>
+     * A game is lost if an exact state of the Game is repeated more than 2 times, indicating a deadlock.
+     * </p>
+     *
+     * @return {@code true} if the Game is won, {@code false} otherwise
+     */
     public boolean isGameOver() {
         boolean hasPingPong = false;
         List<Integer> frequencies = gameStateFrequencies.values().stream().toList();
@@ -76,6 +124,13 @@ public class Game {
         return hasPingPong;
     }
 
+    /**
+     * Record the exact state of the Game to the {@code gameStateFrequencies} Map.
+     *
+     * <p>
+     * A Game state contains a Stringified version of every Manoeuvre Pile, Foundation Pile, and Talon Pile.
+     * </p>
+     */
     public void recordStateEntry() {
         StringBuilder stateEntry = new StringBuilder();
 

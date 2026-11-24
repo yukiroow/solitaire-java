@@ -15,6 +15,13 @@ import com.svi.solitaire.utils.CardUtil;
  * @since 1.0
  */
 public class GameFactory {
+    /**
+     * Construct a Game Instance from the given Deck object and Game Settings object.
+     *
+     * @param shuffledDeck the given Deck object
+     * @param gameSettings the given Game Settings object
+     * @return the constructed Game instance.
+     */
     public static Game createGame(Deck shuffledDeck, GameSettings gameSettings) {
         FoundationPile[] foundationPiles = new FoundationPile[4];
         ManoeuvrePile[] manoeuvrePiles = new ManoeuvrePile[7];

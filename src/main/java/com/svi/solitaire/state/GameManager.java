@@ -32,12 +32,24 @@ public class GameManager {
     private String[] gameArgs;
     private InputStream deckInputStream;
 
+    /**
+     * Construct a new Game Manager with the given program arguments.
+     *
+     * @param args the given program arguments
+     */
     public GameManager(String[] args) {
         this.gameArgs = args;
         keyboardInput = new Scanner(System.in);
         gameRunning = true;
     }
 
+    /**
+     * Start the Manager Runtime.
+     *
+     * <p>
+     * The main program loop is hosted here.
+     * </p>
+     */
     public void run() {
         ConsolePrinter.printGameIntroduction();
 
@@ -58,6 +70,13 @@ public class GameManager {
         }
     }
 
+    /**
+     * Start a Game Instance from the given Game object.
+     *
+     * @param gameInstance the given Game Object.
+     * @param verbose      the print flag
+     * @return {@code true} if the Game is won, {@code false} otherwise
+     */
     private boolean startSingleGameInstance(Game gameInstance, boolean verbose) {
         FoundationPile[] foundationPiles = gameInstance.getFoundationPiles();
         ManoeuvrePile[] manoeuvrePiles = gameInstance.getManoeuvrePiles();
@@ -72,7 +91,7 @@ public class GameManager {
 
             do {
                 moveManoeuvre(manoeuvrePiles, verbose);
-                moveFoundation(manoeuvrePiles, foundationPiles, verbose);
+                moveToFoundation(manoeuvrePiles, foundationPiles, verbose);
             } while (moveTalon(talonPile, manoeuvrePiles, foundationPiles, verbose));
 
             gameInstance.recordStateEntry();
@@ -94,6 +113,15 @@ public class GameManager {
         return isWin;
     }
 
+    /**
+     * Start a Multi Game instance with the given Deck object.
+     *
+     * <p>
+     * A Multi Game instance runs multiple games and computes the win rate of every Game ran.
+     * </p>
+     *
+     * @param gameDeck the given Deck object
+     */
     private void startMultiGameInstance(Deck gameDeck) {
         int wins = 0;
         int losses = 0;
@@ -111,6 +139,16 @@ public class GameManager {
         ConsolePrinter.printMultiGameSummary(gameSettings.getGameCount(), wins, losses, winRate);
     }
 
+    /**
+     * Execute a move within the given array of Manoeuvre Piles.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param manoeuvrePiles the given Manoeuvre Piles
+     * @param verbose        the print flag
+     */
     private void moveManoeuvre(ManoeuvrePile[] manoeuvrePiles, boolean verbose) {
         Set<String> moves = new HashSet<>();
 
@@ -136,7 +174,18 @@ public class GameManager {
         }
     }
 
-    private void moveFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
+    /**
+     * Execute a move from the given array of Manoeuvre Piles to the given array of Foundation Piles.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param manoeuvrePiles  the given Manoeuvre Piles
+     * @param foundationPiles the given Foundation Piles
+     * @param verbose         the print flag
+     */
+    private void moveToFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         for (ManoeuvrePile currManPile : manoeuvrePiles) {
             for (FoundationPile targetPile : foundationPiles) {
                 MoveUtil.moveManoeuvreToFoundation(currManPile, targetPile, verbose);
@@ -144,6 +193,19 @@ public class GameManager {
         }
     }
 
+    /**
+     * Execute a move from the given Talon Pile to the given array of Manoeuvre Piles and Foundation Piles.
+     *
+     * <p>
+     * The {@code verbose} flag determines whether the method will print operations to the console.
+     * </p>
+     *
+     * @param talonPile
+     * @param manoeuvrePiles
+     * @param foundationPiles
+     * @param verbose
+     * @return
+     */
     private boolean moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
         boolean hasDrawnCards = false;
         boolean moveMade = false;
@@ -171,6 +233,9 @@ public class GameManager {
         return moveMade;
     }
 
+    /**
+     * Initialize all the necessary fields for the Game Settings.
+     */
     private void initGameSettings() {
         int drawCount = InputReader.readDrawCount(keyboardInput);
         Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);

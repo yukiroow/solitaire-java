@@ -7,6 +7,7 @@ import com.svi.solitaire.models.pile.ManoeuvrePile;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Utility class for Card Operations.
@@ -15,12 +16,29 @@ import java.util.Collections;
  * @since 1.0
  */
 public class CardUtil {
+    /**
+     * This returns a new instance of a given Deck that has been randomly shuffled using the {@code Collections} package.
+     *
+     * @param deck the Deck to be shuffled
+     * @return the shuffled Deck
+     */
     public static Deck doRandomShuffle(Deck deck) {
         Deck shuffledDeck = new Deck(deck);
         Collections.shuffle(shuffledDeck.getCards());
         return shuffledDeck;
     }
 
+    /**
+     * This returns a new instance of a given Deck that has been Faro shuffled.
+     *
+     * <p>
+     * The Faro shuffle depends on the given {@code ShuffleType}.
+     * </p>
+     *
+     * @param deck        the Deck to be shuffled
+     * @param shuffleType the given ShuffleType
+     * @return the shuffled Deck
+     */
     public static Deck doFaroShuffle(Deck deck, Shuffle shuffleType) {
         int mid = deck.getCards().size() / 2;
         ArrayList<Card> newDeck = new ArrayList<>();
@@ -38,7 +56,19 @@ public class CardUtil {
         return new Deck(newDeck);
     }
 
+    /**
+     * This deals the Cards from the given Deck to the given array of Manoeuvre Piles.
+     *
+     * <p>
+     * The remaining Cards not dealt are returned as a Deck object.
+     * </p>
+     *
+     * @param deck            the given Deck
+     * @param manoeuvreStacks the given array of Manoeuvre Piles
+     * @return the remaining Cards
+     */
     public static Deck dealManoeuvreCards(Deck deck, ManoeuvrePile[] manoeuvreStacks) {
+        List<Card> remainingCards;
         int stackIndex = 0;
         int fullStacks = 0;
         int cutoffIndex = 0;
@@ -60,6 +90,9 @@ public class CardUtil {
             }
             stackIndex = (stackIndex + 1) % manoeuvreStacks.length;
         }
-        return new Deck(deck.getCards().subList(cutoffIndex, deck.getCards().size()));
+
+        remainingCards = deck.getCards().subList(cutoffIndex, deck.getCards().size());
+
+        return new Deck(remainingCards);
     }
 }

@@ -9,6 +9,11 @@ import com.svi.solitaire.state.GameManager;
  * @since 1.0
  */
 public class App {
+    /**
+     * Starts the application.
+     *
+     * @param args the program arguments
+     */
     static void main(String[] args) {
         GameManager gameManager = new GameManager(args);
         gameManager.run();

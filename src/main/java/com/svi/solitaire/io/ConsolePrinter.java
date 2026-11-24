@@ -13,6 +13,11 @@ import com.svi.solitaire.models.pile.TalonPile;
  * @since 1.0
  */
 public class ConsolePrinter {
+    /**
+     * This prints the current state of the given Game Instance.
+     *
+     * @param gameInstance the given Game Instance
+     */
     public static void printDeckState(Game gameInstance) {
         int round = gameInstance.getRounds();
         ManoeuvrePile[] manoeuvrePiles = gameInstance.getManoeuvrePiles();
@@ -36,6 +41,11 @@ public class ConsolePrinter {
         System.out.println("MOVES");
     }
 
+    /**
+     * This prints the values of the given Game Settings object.
+     *
+     * @param gameSettings the given Game Settings
+     */
     public static void printGameSettings(GameSettings gameSettings) {
         String drawCountDisplay = gameSettings.getDrawCount() == 1 ? "1 Card" : "3 Cards";
         System.out.println("-----------------------------------------");
@@ -49,6 +59,12 @@ public class ConsolePrinter {
         }
     }
 
+    /**
+     * This prints the summary of the given Game Instance.
+     *
+     * @param gameInstance the given Game instance
+     * @param isWin        the flag for the Game win state
+     */
     public static void printSingleGameSummary(Game gameInstance, boolean isWin) {
         System.out.println("-----------------------------------------");
         System.out.println(isWin ? "GAME WON!" : "GAME LOST!");
@@ -61,6 +77,14 @@ public class ConsolePrinter {
         System.out.println();
     }
 
+    /**
+     * This prints the summary of a Multi Game run.
+     *
+     * @param gameCount the number of games
+     * @param wins      the number of winning games
+     * @param losses    the number of lost games
+     * @param winRate   the computed win rate
+     */
     public static void printMultiGameSummary(int gameCount, int wins, int losses, double winRate) {
         System.out.println("-----------------------------------------");
         System.out.println("RUN COMPLETED");
@@ -71,6 +95,9 @@ public class ConsolePrinter {
         System.out.printf("%-20s%.2f%%%n", "Win Rate:", winRate);
     }
 
+    /**
+     * This prints the Game introduction
+     */
     public static void printGameIntroduction() {
         System.out.println("""
                 -----------------------------------------
@@ -86,6 +113,9 @@ public class ConsolePrinter {
                     (T-F) Talon Waste to Foundation move""");
     }
 
+    /**
+     * This prints the usage guide for this program.
+     */
     public static void printUsageGuide() {
         System.out.println("""
                 Usage: java -jar harrydom-solitaire.jar <deck-file> [-visible | -hidden]
