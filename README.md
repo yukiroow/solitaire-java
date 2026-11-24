@@ -46,5 +46,3 @@ At any time, flip cards from the **talon**. Where possible, move these cards int
 
 You may cycle through the **talon** an unlimited number of times.
 
-## My Game Flow Algorithm
-

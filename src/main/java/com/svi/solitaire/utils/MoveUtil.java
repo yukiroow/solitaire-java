@@ -47,7 +47,7 @@ public class MoveUtil {
             sourcePile.revealCard(verbose);
         }
 
-        if (verbose) {
+        if (verbose && !move.isEmpty()) {
             System.out.println(move);
         }
 
@@ -71,7 +71,7 @@ public class MoveUtil {
             sourcePile.revealCard(verbose);
         }
 
-        if (verbose) {
+        if (verbose && !move.isEmpty()) {
             System.out.println(move);
         }
     }
@@ -93,7 +93,7 @@ public class MoveUtil {
             moveMade = true;
         }
 
-        if (verbose) {
+        if (verbose && !move.isEmpty()) {
             System.out.println(move);
         }
 
@@ -113,7 +113,7 @@ public class MoveUtil {
             sourceIterator.remove();
         }
 
-        if (verbose) {
+        if (verbose && !move.isEmpty()) {
             System.out.println(move);
         }
     }
