@@ -238,13 +238,15 @@ public class GameManager {
         int drawCount = InputReader.readDrawCount(keyboardInput);
         Shuffle shuffleType = InputReader.readShuffleType(keyboardInput);
         GameType gameType = GameType.SINGLE;
+        int numFaroShuffle = 0;
 
-        if (shuffleType == Shuffle.RANDOM) {
-            gameType = InputReader.readGameType(keyboardInput);
+        switch (shuffleType) {
+            case RANDOM -> gameType = InputReader.readGameType(keyboardInput);
+            case OUT_FARO, IN_FARO -> numFaroShuffle = InputReader.readNumFaroShuffle(keyboardInput, shuffleType);
         }
 
         switch (gameType) {
-            case SINGLE -> gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType);
+            case SINGLE -> gameSettings = new GameSettings(drawCount, numFaroShuffle, shuffleType, cardVisibilitySetting, gameType);
             case MULTI -> {
                 int gameCount = InputReader.readGameCount(keyboardInput);
                 gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType, gameCount);

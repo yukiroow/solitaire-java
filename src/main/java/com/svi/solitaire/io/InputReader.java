@@ -15,6 +15,8 @@ import java.util.Scanner;
  */
 public class InputReader {
     private static final int GAME_LIMIT = 10_000;
+    private static final int OUT_SHUFFLE_LIMIT = 8;
+    private static final int IN_SHUFFLE_LIMIT = 52;
 
     /**
      * This reads the Draw Count setting for the Game using the given Scanner object
@@ -112,6 +114,36 @@ public class InputReader {
             }
         }
         return games;
+    }
+
+    /**
+     * This reads the number of Faro Shuffles to be run by the program using the given Scanner object.
+     *
+     * <p>
+     * The user input must be of type {@code int} and be greater than {@code 0}
+     * </p>
+     *
+     * @param keyboardInput the given Scanner object
+     * @return the number of Shuffles
+     */
+    public static int readNumFaroShuffle(Scanner keyboardInput, Shuffle shuffleType) {
+        int shuffles = 0;
+        boolean validInput = false;
+        while (!validInput) {
+            int maxShuffle = (shuffleType == Shuffle.OUT_FARO) ? OUT_SHUFFLE_LIMIT : IN_SHUFFLE_LIMIT;
+            System.out.println("-----------------------------------------");
+            System.out.println("ENTER AMOUNT OF Shuffles (Max. " + maxShuffle + ")");
+            try {
+                shuffles = readIntInput(keyboardInput);
+                if (shuffles < 1 || shuffles > maxShuffle) {
+                    throw new InvalidInputException();
+                }
+                validInput = true;
+            } catch (InvalidInputException iie) {
+                System.out.println("Please enter an amount from 1 to " + maxShuffle);
+            }
+        }
+        return shuffles;
     }
 
     /**

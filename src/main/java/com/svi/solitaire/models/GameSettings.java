@@ -12,6 +12,7 @@ import com.svi.solitaire.enums.Shuffle;
  */
 public class GameSettings {
     private int drawCount;
+    private int numFaroShuffle;
     private Shuffle shuffleType;
     private CardVisibility cardVisibilitySetting;
     private GameType gameType;
@@ -20,16 +21,18 @@ public class GameSettings {
     /**
      * Construct a Game Settings object for a Single Game Instance.
      *
-     * @param drawCount             the DrawType
+     * @param drawCount             the number of Card Draws
      * @param shuffleType           the ShuffleType
      * @param cardVisibilitySetting the VisibilitySetting
      * @param gameType              the GameType
+     * @param numFaroShuffle        the number of Shuffles
      */
-    public GameSettings(int drawCount, Shuffle shuffleType, CardVisibility cardVisibilitySetting, GameType gameType) {
+    public GameSettings(int drawCount, int numFaroShuffle, Shuffle shuffleType, CardVisibility cardVisibilitySetting, GameType gameType) {
         this.drawCount = drawCount;
         this.shuffleType = shuffleType;
         this.cardVisibilitySetting = cardVisibilitySetting;
         this.gameType = gameType;
+        this.numFaroShuffle = numFaroShuffle;
     }
 
     /**
@@ -92,5 +95,14 @@ public class GameSettings {
      */
     public int getGameCount() {
         return gameCount;
+    }
+
+    /**
+     * This returns the number of Faro Shuffles
+     *
+     * @return the number of Faro Shuffles
+     */
+    public int getNumFaroShuffle() {
+        return numFaroShuffle;
     }
 }

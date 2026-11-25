@@ -30,10 +30,20 @@ public class DeckFactory {
         Deck deck = FileLoader.loadDeckFromFile(deckFile);
 
         return switch (gameSettings.getShuffleType()) {
-            case Shuffle.OUT_FARO -> CardUtil.doFaroShuffle(deck, Shuffle.OUT_FARO);
-            case Shuffle.IN_FARO -> CardUtil.doFaroShuffle(deck, Shuffle.IN_FARO);
-            case Shuffle.RANDOM -> CardUtil.doRandomShuffle(deck);
-            case Shuffle.AS_IS -> deck;
+            case OUT_FARO -> {
+                for (int currShuffle = 0; currShuffle < gameSettings.getNumFaroShuffle(); currShuffle++) {
+                    deck = CardUtil.doFaroShuffle(deck, Shuffle.OUT_FARO);
+                }
+                yield deck;
+            }
+            case IN_FARO -> {
+                for (int currShuffle = 0; currShuffle < gameSettings.getNumFaroShuffle(); currShuffle++) {
+                    deck = CardUtil.doFaroShuffle(deck, Shuffle.IN_FARO);
+                }
+                yield deck;
+            }
+            case RANDOM -> CardUtil.doRandomShuffle(deck);
+            case AS_IS -> deck;
         };
     }
 }
