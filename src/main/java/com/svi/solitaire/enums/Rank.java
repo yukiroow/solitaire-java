@@ -23,17 +23,17 @@ public enum Rank {
     /**
      * Constructs a Rank associated with a given numeric value.
      *
-     * @param val given numeric value
+     * @param value given numeric value
      * @return Rank with the given value
      */
-    public static Rank fromInt(int val) {
+    public static Rank fromInt(int value) {
         for (Rank rank : Rank.values()) {
-            if (rank.value == val) {
+            if (rank.value == value) {
                 return rank;
             }
         }
 
-        return null;
+        throw new IllegalArgumentException("Unknown rank value: " + value);
     }
 
     /**
