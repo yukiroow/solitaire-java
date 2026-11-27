@@ -67,7 +67,12 @@ public class MoveHelper {
             if (!currCard.isAppendableTo(targetCard)) {
                 continue;
             }
-            int currScore = (currCardIndex == 0) ? PRIORITY_MOVE : NORMAL_MOVE;
+            int currScore;
+            if (currCardIndex == 0) {
+                currScore = PRIORITY_MOVE;
+            } else {
+                currScore = NORMAL_MOVE;
+            }
             if (currScore > highestScore) {
                 highestScore = currScore;
                 bestCardIndex = currCardIndex;

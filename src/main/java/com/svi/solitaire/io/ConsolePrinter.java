@@ -47,7 +47,12 @@ public class ConsolePrinter {
      * @param gameSettings the given Game Settings
      */
     public static void printGameSettings(GameSettings gameSettings) {
-        String drawCountDisplay = gameSettings.getDrawCount() == 1 ? "1 Card" : "3 Cards";
+        String drawCountDisplay;
+        if (gameSettings.getDrawCount() == 1) {
+            drawCountDisplay = "1 Card";
+        } else {
+            drawCountDisplay = "3 Card";
+        }
         System.out.println("-----------------------------------------");
         System.out.println("GAME SETTINGS");
         System.out.printf("%-20s%s%n", "Game Type:", gameSettings.getGameType());
@@ -66,8 +71,14 @@ public class ConsolePrinter {
      * @param isWin        the flag for the Game win state
      */
     public static void printSingleGameSummary(Game gameInstance, boolean isWin) {
+        String winDisplay;
+        if (isWin) {
+            winDisplay = "GAME WON!";
+        } else {
+            winDisplay = "GAME LOST!";
+        }
         System.out.println("-----------------------------------------");
-        System.out.println(isWin ? "GAME WON!" : "GAME LOST!");
+        System.out.println(winDisplay);
         System.out.println("SUMMARY");
         System.out.println("Total Rounds: " + gameInstance.getRounds());
         System.out.print("FOUNDATION PILES: ");
@@ -85,8 +96,7 @@ public class ConsolePrinter {
      * @param losses    the number of lost games
      * @param winRate   the computed win rate
      */
-    public static void printMultiGameSummary(int gameCount, int wins,
-                                             int losses, double winRate) {
+    public static void printMultiGameSummary(int gameCount, int wins, int losses, double winRate) {
         System.out.println("-----------------------------------------");
         System.out.println("RUN COMPLETED");
         System.out.println("SUMMARY");

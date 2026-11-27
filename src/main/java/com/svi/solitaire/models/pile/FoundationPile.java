@@ -80,6 +80,7 @@ public class FoundationPile implements CardPile {
     @Override
     public String toString() {
         Card topCard = peek();
+        // Return [ - ] if topCard is null, otherwise return [ topCard ].
         return topCard == null ? "[ - ]" : ("[" + topCard + "]");
     }
 }

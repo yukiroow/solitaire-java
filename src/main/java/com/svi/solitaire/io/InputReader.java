@@ -130,7 +130,12 @@ public class InputReader {
         int shuffles = 0;
         boolean validInput = false;
         while (!validInput) {
-            int maxShuffle = (shuffleType == Shuffle.OUT_FARO) ? OUT_SHUFFLE_LIMIT : IN_SHUFFLE_LIMIT;
+            int maxShuffle;
+            if(shuffleType == Shuffle.OUT_FARO) {
+                maxShuffle = OUT_SHUFFLE_LIMIT;
+            } else {
+                maxShuffle = IN_SHUFFLE_LIMIT;
+            }
             System.out.println("-----------------------------------------");
             System.out.println("ENTER AMOUNT OF Shuffles (Max. " + maxShuffle + ")");
             try {
