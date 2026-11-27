@@ -55,9 +55,13 @@ public class FileLoader {
         StringTokenizer tokenizer = new StringTokenizer(rawFile, ",");
 
         while (tokenizer.hasMoreTokens()) {
-            StringTokenizer innerTokenizer = new StringTokenizer(tokenizer.nextToken(), "-");
-            String suitVal = innerTokenizer.nextToken().trim();
-            String rawRank = innerTokenizer.nextToken().trim();
+            String token = tokenizer.nextToken();
+            String[] parts = token.split("-");
+            if (parts.length != 2) {
+                throw new InvalidDeckFileException("Invalid card: " + token);
+            }
+            String suitVal = parts[0].trim();
+            String rawRank = parts[1].trim();
             Card currCard = parseCard(suitVal, rawRank);
             parsedCards.add(currCard);
         }

@@ -1,5 +1,6 @@
 package com.svi.solitaire;
 
+import com.svi.solitaire.exceptions.InvalidDeckFileException;
 import com.svi.solitaire.state.GameManager;
 
 /**
@@ -15,7 +16,12 @@ public class App {
      * @param args the program arguments
      */
     static void main(String[] args) {
-        GameManager gameManager = new GameManager(args);
-        gameManager.run();
+        try {
+            GameManager gameManager = new GameManager(args);
+            gameManager.run();
+        } catch (InvalidDeckFileException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
     }
 }
