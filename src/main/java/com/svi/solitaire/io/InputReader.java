@@ -3,8 +3,8 @@ package com.svi.solitaire.io;
 import com.svi.solitaire.enums.GameType;
 import com.svi.solitaire.enums.Shuffle;
 import com.svi.solitaire.exceptions.InvalidInputException;
+import com.svi.solitaire.utils.InputUtil;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -38,7 +38,7 @@ public class InputReader {
                     1. Draw One
                     2. Draw Three""");
             try {
-                int numInput = readIntInput(keyboardInput);
+                int numInput = InputUtil.readIntInput(keyboardInput);
                 choice = switch (numInput) {
                     case 1 -> 1;
                     case 2 -> 3;
@@ -72,7 +72,7 @@ public class InputReader {
                     1. Single Game
                     2. Multi Game""");
             try {
-                int numInput = readIntInput(keyboardInput);
+                int numInput = InputUtil.readIntInput(keyboardInput);
                 choice = switch (numInput) {
                     case 1 -> GameType.SINGLE;
                     case 2 -> GameType.MULTI;
@@ -104,7 +104,7 @@ public class InputReader {
                     -----------------------------------------
                     ENTER AMOUNT OF GAMES (Max. 10,000)""");
             try {
-                games = readIntInput(keyboardInput);
+                games = InputUtil.readIntInput(keyboardInput);
                 if (games < 1 || games > GAME_LIMIT) {
                     throw new InvalidInputException();
                 }
@@ -134,7 +134,7 @@ public class InputReader {
             System.out.println("-----------------------------------------");
             System.out.println("ENTER AMOUNT OF Shuffles (Max. " + maxShuffle + ")");
             try {
-                shuffles = readIntInput(keyboardInput);
+                shuffles = InputUtil.readIntInput(keyboardInput);
                 if (shuffles < 1 || shuffles > maxShuffle) {
                     throw new InvalidInputException();
                 }
@@ -168,7 +168,7 @@ public class InputReader {
                     3. Random Shuffle
                     4. Leave deck as-is""");
             try {
-                int numInput = readIntInput(keyboardInput);
+                int numInput = InputUtil.readIntInput(keyboardInput);
                 choice = switch (numInput) {
                     case 1 -> Shuffle.OUT_FARO;
                     case 2 -> Shuffle.IN_FARO;
@@ -204,7 +204,7 @@ public class InputReader {
                     1. Play Again
                     2. Exit Game""");
             try {
-                int numInput = readIntInput(keyboardInput);
+                int numInput = InputUtil.readIntInput(keyboardInput);
                 choice = switch (numInput) {
                     case 1 -> true;
                     case 2 -> false;
@@ -217,24 +217,5 @@ public class InputReader {
         }
 
         return choice;
-    }
-
-    /**
-     * This reads an {@code int} input using the given Scanner object.
-     *
-     * @param keyboardInput the given Scanner object
-     * @return the {@code int} input
-     */
-    private static int readIntInput(Scanner keyboardInput) {
-        try {
-            System.out.print("> ");
-            return Integer.parseInt(keyboardInput.nextLine().trim());
-        } catch (NumberFormatException nfe) {
-            System.out.println("Please enter a valid value.");
-        } catch (NoSuchElementException nsee) {
-            System.out.println("The scanner object has been forcibly closed.");
-            throw new RuntimeException(nsee);
-        }
-        return -1;
     }
 }

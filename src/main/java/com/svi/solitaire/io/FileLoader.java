@@ -64,7 +64,7 @@ public class FileLoader {
 
         if (!validateLoadedDeck(parsedCards)) {
             System.out.println("There was a discrepancy in the amount of Cards loaded.\nPlease verify the input.txt file and reload.");
-            System.exit(0);
+            throw new InvalidDeckFileException("Invalid File.");
         }
 
         return new Deck(parsedCards);
@@ -78,7 +78,7 @@ public class FileLoader {
      * @return the constructed Card
      */
     private static Card parseCard(String rawSuit, String rawRank) {
-        Card tempCard = null;
+        Card tempCard;
         Suit suitVal;
         Rank rankVal;
 
@@ -92,7 +92,7 @@ public class FileLoader {
             tempCard = new Card(rankVal, suitVal);
         } catch (IllegalArgumentException iae) {
             System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
-            System.exit(0);
+            throw new InvalidDeckFileException("Invalid File.");
         }
 
         return tempCard;
