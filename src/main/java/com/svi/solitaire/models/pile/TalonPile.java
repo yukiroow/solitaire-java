@@ -100,11 +100,9 @@ public class TalonPile implements CardPile {
      * Puts all the Cards in the Waste to the back of the Stock
      */
     public void resetPile() {
-        for (Card card : wastePile) {
-            appendCard(card);
+        while (!wastePile.isEmpty()) {
+            stockPile.add(wastePile.pollLast());
         }
-
-        wastePile.clear();
     }
 
     /**
