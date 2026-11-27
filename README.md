@@ -47,7 +47,7 @@ mvn clean package
 
 ```shell
 java -cp target/classes com.svi.solitaire.App <deck_file> [ -visible | -hidden ]
-
+# or
 java -jar target/harrydom-solitaire-0.1.jar <deck_file> [ -visible | -hidden ]
 ```
 
