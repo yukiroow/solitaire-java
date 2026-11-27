@@ -48,12 +48,12 @@ public class ManoeuvreMoves {
             prevCard = currCard;
         }
 
-        if (sourcePile.isVisibleCardsEmpty()) {
-            sourcePile.revealCard(verbose);
-        }
-
         if (verbose && !move.isEmpty()) {
             System.out.println(move);
+        }
+
+        if (sourcePile.isVisibleCardsEmpty()) {
+            sourcePile.revealCard(verbose);
         }
 
         return moveMade;
@@ -81,7 +81,7 @@ public class ManoeuvreMoves {
         while (sourceIterator.hasNext()) currCard = sourceIterator.next();
         Card prevFoundationCard = targetPile.peek();
         if (targetPile.appendCard(currCard)) {
-            move = "(M-F) MOVED: " + currCard + " -> " + prevFoundationCard;
+            move = "(M-F) MOVED: " + currCard + " -> " + (prevFoundationCard != null ? prevFoundationCard : "Empty Foundation Pile");
             sourceIterator.remove();
         }
 

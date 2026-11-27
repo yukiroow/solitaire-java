@@ -66,7 +66,7 @@ public class TalonMoves {
         Card currCard = sourceIterator.next();
         Card prevFoundationCard = targetPile.peek();
         if (targetPile.appendCard(currCard)) {
-            move = "(T-F) MOVED: " + currCard + " -> " + prevFoundationCard;
+            move = "(T-F) MOVED: " + currCard + " -> " + (prevFoundationCard != null ? prevFoundationCard : "Empty Foundation Pile");
             sourceIterator.remove();
         }
 
