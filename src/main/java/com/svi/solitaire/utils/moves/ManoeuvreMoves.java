@@ -32,7 +32,9 @@ public class ManoeuvreMoves {
         Card targetCard = targetPile.peek();
         sourceVisibleCardIterator =
                 MoveHelper.updateIteratorToBestMoveCard(sourcePile, sourceVisibleCardIterator, targetCard);
-        if (sourceVisibleCardIterator == null) return false;
+        if (sourceVisibleCardIterator == null) {
+            return false;
+        }
 
         boolean prevHasHidden = sourcePile.getHiddenCardsSize() > 0;
         boolean moveMade = false;
@@ -81,7 +83,9 @@ public class ManoeuvreMoves {
         }
 
         Card currCard = null;
-        while (sourceIterator.hasNext()) currCard = sourceIterator.next();
+        while (sourceIterator.hasNext()) {
+            currCard = sourceIterator.next();
+        }
         Card prevFoundationCard = targetPile.peek();
         if (targetPile.appendCard(currCard)) {
             move = "(M-F) MOVED: " + currCard + " -> "
