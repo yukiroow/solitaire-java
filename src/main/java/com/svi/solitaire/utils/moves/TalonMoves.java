@@ -24,7 +24,8 @@ public class TalonMoves {
      * @param targetPile the target pile
      * @param verbose    the print flag
      */
-    public static void moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile, boolean verbose) {
+    public static void moveTalonToManoeuvre(TalonPile sourcePile, ManoeuvrePile targetPile,
+                                            boolean verbose) {
         String move = "";
         Card sourceCard = sourcePile.peek();
         Card targetCard = targetPile.peek();
@@ -56,7 +57,8 @@ public class TalonMoves {
      * @param targetPile the target pile
      * @param verbose    the print flag
      */
-    public static void moveTalonToFoundation(TalonPile sourcePile, FoundationPile targetPile, boolean verbose) {
+    public static void moveTalonToFoundation(TalonPile sourcePile, FoundationPile targetPile,
+                                             boolean verbose) {
         String move = "";
         Iterator<Card> sourceIterator = sourcePile.getWastePileIterator();
         if (!sourceIterator.hasNext()) {
@@ -66,7 +68,8 @@ public class TalonMoves {
         Card currCard = sourceIterator.next();
         Card prevFoundationCard = targetPile.peek();
         if (targetPile.appendCard(currCard)) {
-            move = "(T-F) MOVED: " + currCard + " -> " + (prevFoundationCard != null ? prevFoundationCard : "Empty Foundation Pile");
+            move = "(T-F) MOVED: " + currCard + " -> "
+                    + (prevFoundationCard != null ? prevFoundationCard : "Empty Foundation Pile");
             sourceIterator.remove();
         }
 

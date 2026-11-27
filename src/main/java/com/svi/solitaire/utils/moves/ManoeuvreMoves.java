@@ -25,11 +25,13 @@ public class ManoeuvreMoves {
      * @param verbose    the print flag
      * @return {@code true} if a move was made, {@code false} otherwise.
      */
-    public static boolean moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile, ManoeuvrePile targetPile, boolean verbose) {
+    public static boolean moveManoeuvreToManoeuvre(ManoeuvrePile sourcePile,
+                                                   ManoeuvrePile targetPile, boolean verbose) {
         String move = "";
         Iterator<Card> sourceVisibleCardIterator = sourcePile.getVisibleCardsIterator();
         Card targetCard = targetPile.peek();
-        sourceVisibleCardIterator = MoveHelper.updateIteratorToBestMoveCard(sourcePile, sourceVisibleCardIterator, targetCard);
+        sourceVisibleCardIterator =
+                MoveHelper.updateIteratorToBestMoveCard(sourcePile, sourceVisibleCardIterator, targetCard);
         if (sourceVisibleCardIterator == null) return false;
 
         boolean prevHasHidden = sourcePile.getHiddenCardsSize() > 0;
@@ -70,7 +72,8 @@ public class ManoeuvreMoves {
      * @param targetPile the target pile
      * @param verbose    the print flag
      */
-    public static void moveManoeuvreToFoundation(ManoeuvrePile sourcePile, FoundationPile targetPile, boolean verbose) {
+    public static void moveManoeuvreToFoundation(ManoeuvrePile sourcePile,
+                                                 FoundationPile targetPile, boolean verbose) {
         String move = "";
         Iterator<Card> sourceIterator = sourcePile.getVisibleCardsIterator();
         if (!sourceIterator.hasNext()) {
@@ -81,7 +84,8 @@ public class ManoeuvreMoves {
         while (sourceIterator.hasNext()) currCard = sourceIterator.next();
         Card prevFoundationCard = targetPile.peek();
         if (targetPile.appendCard(currCard)) {
-            move = "(M-F) MOVED: " + currCard + " -> " + (prevFoundationCard != null ? prevFoundationCard : "Empty Foundation Pile");
+            move = "(M-F) MOVED: " + currCard + " -> "
+                    + (prevFoundationCard != null ? prevFoundationCard : "Empty Foundation Pile");
             sourceIterator.remove();
         }
 

@@ -85,7 +85,8 @@ public class ConsolePrinter {
      * @param losses    the number of lost games
      * @param winRate   the computed win rate
      */
-    public static void printMultiGameSummary(int gameCount, int wins, int losses, double winRate) {
+    public static void printMultiGameSummary(int gameCount, int wins,
+                                             int losses, double winRate) {
         System.out.println("-----------------------------------------");
         System.out.println("RUN COMPLETED");
         System.out.println("SUMMARY");

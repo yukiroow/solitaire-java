@@ -44,7 +44,8 @@ public class CardUtil {
         int mid = deck.getCards().size() / 2;
         ArrayList<Card> newDeck = new ArrayList<>();
         ArrayList<Card> firstHalf = new ArrayList<>(deck.getCards().subList(0, mid));
-        ArrayList<Card> secondHalf = new ArrayList<>(deck.getCards().subList(mid, deck.getCards().size()));
+        ArrayList<Card> secondHalf =
+                new ArrayList<>(deck.getCards().subList(mid, deck.getCards().size()));
 
         for (int i = 0; i < mid; i++) {
             if (shuffleType == Shuffle.OUT_FARO) {

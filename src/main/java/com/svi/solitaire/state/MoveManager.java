@@ -34,7 +34,8 @@ public class MoveManager {
 
             for (int targetManPileIndex = 0; targetManPileIndex < manoeuvrePiles.length; targetManPileIndex++) {
                 ManoeuvrePile targetManPile = manoeuvrePiles[targetManPileIndex];
-                String moveEntry = Math.min(currManPileIndex, targetManPileIndex) + "->" + Math.max(currManPileIndex, targetManPileIndex);
+                String moveEntry = Math.min(currManPileIndex, targetManPileIndex) + "->"
+                        + Math.max(currManPileIndex, targetManPileIndex);
 
                 if (currManPileIndex == targetManPileIndex) {
                     continue;
@@ -43,7 +44,8 @@ public class MoveManager {
                     continue;
                 }
 
-                boolean moveMade = ManoeuvreMoves.moveManoeuvreToManoeuvre(currManPile, targetManPile, verbose);
+                boolean moveMade =
+                        ManoeuvreMoves.moveManoeuvreToManoeuvre(currManPile, targetManPile, verbose);
                 if (moveMade) {
                     moves.add(moveEntry);
                 }
@@ -62,7 +64,8 @@ public class MoveManager {
      * @param foundationPiles the given Foundation Piles
      * @param verbose         the print flag
      */
-    public static void moveToFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
+    public static void moveToFoundation(ManoeuvrePile[] manoeuvrePiles, FoundationPile[]
+            foundationPiles, boolean verbose) {
         for (ManoeuvrePile currManPile : manoeuvrePiles) {
             for (FoundationPile targetPile : foundationPiles) {
                 ManoeuvreMoves.moveManoeuvreToFoundation(currManPile, targetPile, verbose);
@@ -82,7 +85,8 @@ public class MoveManager {
      * @param foundationPiles the given Foundation Pile
      * @param verbose         the print flag
      */
-    public static void moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles, FoundationPile[] foundationPiles, boolean verbose) {
+    public static void moveTalon(TalonPile talonPile, ManoeuvrePile[] manoeuvrePiles,
+                                 FoundationPile[] foundationPiles, boolean verbose) {
         boolean hasDrawnCards = false;
 
         if (talonPile.isStockEmpty()) {

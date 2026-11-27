@@ -25,7 +25,9 @@ public class MoveHelper {
      * @param targetCard                the target Card
      * @return the progressed Iterator
      */
-    public static Iterator<Card> updateIteratorToBestMoveCard(ManoeuvrePile sourcePile, Iterator<Card> sourceVisibleCardIterator, Card targetCard) {
+    public static Iterator<Card> updateIteratorToBestMoveCard(ManoeuvrePile sourcePile,
+                                                              Iterator<Card> sourceVisibleCardIterator,
+                                                              Card targetCard) {
         int bestCardIndex = getBestMoveCardIndex(sourceVisibleCardIterator, targetCard);
 
         if (bestCardIndex == -1) {

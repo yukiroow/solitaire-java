@@ -83,15 +83,18 @@ public class GameManager {
 
         switch (shuffleType) {
             case RANDOM -> gameType = InputReader.readGameType(keyboardInput);
-            case OUT_FARO, IN_FARO -> numFaroShuffle = InputReader.readNumFaroShuffle(keyboardInput, shuffleType);
+            case OUT_FARO, IN_FARO -> numFaroShuffle =
+                    InputReader.readNumFaroShuffle(keyboardInput, shuffleType);
         }
 
         switch (gameType) {
             case SINGLE ->
-                    gameSettings = new GameSettings(drawCount, numFaroShuffle, shuffleType, cardVisibilitySetting, gameType);
+                    gameSettings =
+                            new GameSettings(drawCount, numFaroShuffle, shuffleType, cardVisibilitySetting, gameType);
             case MULTI -> {
                 int gameCount = InputReader.readGameCount(keyboardInput);
-                gameSettings = new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType, gameCount);
+                gameSettings =
+                        new GameSettings(drawCount, shuffleType, cardVisibilitySetting, gameType, gameCount);
             }
         }
     }

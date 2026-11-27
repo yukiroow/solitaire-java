@@ -32,9 +32,11 @@ public class FileLoader {
                 rawFile += fileScanner.nextLine().trim();
             }
         } catch (NullPointerException npe) {
-            throw new InvalidDeckFileException("There was an unexpected problem with the input file. Please verify and try again.");
+            throw new InvalidDeckFileException("There was an unexpected problem with the input file. "
+                    + "Please verify and try again.");
         } catch (NoSuchElementException nsee) {
-            throw new InvalidDeckFileException("The input file is empty.\nPlease verify resources directory.");
+            throw new InvalidDeckFileException("The input file is empty.\n"
+                    + "Please verify resources directory.");
         }
 
         return parseToDeck(rawFile);
@@ -67,7 +69,8 @@ public class FileLoader {
         }
 
         if (!validateLoadedDeck(parsedCards)) {
-            System.out.println("There was a discrepancy in the amount of Cards loaded.\nPlease verify the input.txt file and reload.");
+            System.out.println("There was a discrepancy in the amount of Cards loaded.\n"
+                    + "Please verify the input.txt file and reload.");
             throw new InvalidDeckFileException("Invalid File.");
         }
 
@@ -95,7 +98,8 @@ public class FileLoader {
             }
             tempCard = new Card(rankVal, suitVal);
         } catch (IllegalArgumentException iae) {
-            System.out.println("Illegal characters have been detected.\nPlease verify the input.txt file and reload.");
+            System.out.println("Illegal characters have been detected.\n"
+                    + "Please verify the input.txt file and reload.");
             throw new InvalidDeckFileException("Invalid File.");
         }
 

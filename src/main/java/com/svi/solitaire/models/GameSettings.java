@@ -27,7 +27,8 @@ public class GameSettings {
      * @param gameType              the GameType
      * @param numFaroShuffle        the number of Shuffles
      */
-    public GameSettings(int drawCount, int numFaroShuffle, Shuffle shuffleType, CardVisibility cardVisibilitySetting, GameType gameType) {
+    public GameSettings(int drawCount, int numFaroShuffle, Shuffle shuffleType,
+                        CardVisibility cardVisibilitySetting, GameType gameType) {
         this.drawCount = drawCount;
         this.shuffleType = shuffleType;
         this.cardVisibilitySetting = cardVisibilitySetting;
@@ -44,7 +45,8 @@ public class GameSettings {
      * @param gameType              the GameType
      * @param gameCount             the number of games
      */
-    public GameSettings(int drawCount, Shuffle shuffleType, CardVisibility cardVisibilitySetting, GameType gameType, int gameCount) {
+    public GameSettings(int drawCount, Shuffle shuffleType, CardVisibility cardVisibilitySetting,
+                        GameType gameType, int gameCount) {
         this.drawCount = drawCount;
         this.shuffleType = shuffleType;
         this.cardVisibilitySetting = cardVisibilitySetting;
