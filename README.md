@@ -35,16 +35,20 @@ H-10,H-J,H-Q,H-K,S-10,S-J,S-Q,S-K,C-10,C-J,
 C-Q,C-K
 ```
 
-2. Package the Game
+2. Compile or Package the Game
 
 ```shell
 mvn clean compile
+# or
+mvn clean package
 ```
 
-3. Run the Game using the generated JAR file
+3. Run the Game using the compiled Classes or the  generated JAR file
 
 ```shell
-java -jar harrydom-solitaire-0.1.jar <deck_file> [ -visible | -hidden ]
+java -cp target/classes com.svi.solitaire.App <deck_file> [ -visible | -hidden ]
+
+java -jar target/harrydom-solitaire-0.1.jar <deck_file> [ -visible | -hidden ]
 ```
 
 > TIP: You can use the `-visible` or `-hidden` flags to show or hide the face-down cards in a Manoeuvre Pile. The
@@ -78,4 +82,3 @@ into the **foundation** zone. If, during the course of play, a **manoeuvre** sta
 moved onto it.
 
 You may cycle through the **talon** an unlimited number of times.
-
